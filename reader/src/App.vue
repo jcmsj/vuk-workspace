@@ -12,6 +12,7 @@ body {
   @apply overflow-hidden;
 
 }
+
 </style>
 <style scoped>
 

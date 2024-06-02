@@ -1,20 +1,20 @@
 <template>
 <ContextMenu v-model:location="location">
-    <li>
+    <li @click="$emit('select', 'read-aloud')">
         <span>
             <mdi:volume class="h-6 w-6"></mdi:volume>
             Read Aloud
         </span>
     </li>
     <!-- bookmark -->
-    <li>
+    <li @click="$emit('select', 'bookmark')">
         <span>
             <mdi:bookmark class="h-6 w-6"></mdi:bookmark>
             Bookmark
         </span>
     </li>
     <!-- copy -->
-    <li>
+    <li @click="$emit('select', 'read-aloud')">
         <span>
             <mdi:content-copy class="h-6 w-6"></mdi:content-copy>
             Copy

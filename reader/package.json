@@ -11,10 +11,14 @@
   "dependencies": {
     "@jcsj/arraymap": "^0.0.4",
     "@jcsj/epub": "workspace:*",
+    "@jcsj/generate-selector": "^0.0.3",
     "@vueuse/components": "^10.10.0",
     "@vueuse/core": "^10.10.0",
+    "@vueuse/rxjs": "^10.10.0",
     "@vuk/fs": "workspace:*",
     "daisyui": "^4.11.1",
+    "dexie": "^4.0.7",
+    "rxjs": "^7.8.1",
     "tailwindcss": "^3.4.3",
     "vue": "^3.4.27",
     "vue-router": "^4.3.2"

@@ -50,7 +50,7 @@
         :class="{ 'min-h-screen': outsideHome }" />
     </router-view>
     <book-vue :class="{ 'overflow-hidden': outsideHome }" @click.right.prevent="showContextMenu($event)" />
-    <ReaderContextMenu v-model:location="desiredLocation" />
+    <ReaderContextMenu v-model:location="desiredLocation" @select="onSelect" />
   </div>
   <div class="btm-nav md:hidden">
     <upload-btn />
@@ -94,11 +94,25 @@ import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useContextMenu } from '../composables/useContextMenu';
 import ReaderContextMenu from '../contextMenu/ReaderContextMenu.vue';
-
-const { desiredLocation, show: showContextMenu } = useContextMenu()
+import {onClick as onBookmarkClick} from "../bookmarks"
+const { desiredLocation, show: showContextMenu, mouseEvent } = useContextMenu()
 const route = useRoute()
 const outsideHome = computed(() => route.name != 'root');
 
+function onSelect(option: 'read-aloud' | 'bookmark' | 'copy') {
+  if (option == 'bookmark') {
+    console.log('Bookmarking')
+    if  (mouseEvent.value) {
+      onBookmarkClick(mouseEvent.value)
+    } else {
+      throw Error('No mouse event')
+    }
+  } else if (option == 'read-aloud') {
+    console.log('Reading aloud')
+  } else {
+    console.log('Copying')
+  }
+}
 </script>
 <style>
 #app {

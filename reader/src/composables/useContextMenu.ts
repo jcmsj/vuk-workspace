@@ -7,13 +7,13 @@ export function useContextMenu() {
       x: number,
       y: number,
     } | undefined>()
-    const lastMouseEvent = ref<MouseEvent>()
+    const lastMouseEvent = ref<EventTarget[]>()
     function show(e: MouseEvent) {
       desiredLocation.value = {
         x: x.value,
         y: y.value,
       }
-        lastMouseEvent.value = e
+        lastMouseEvent.value = e.composedPath()
       e.preventDefault()
     }
     function hide() {

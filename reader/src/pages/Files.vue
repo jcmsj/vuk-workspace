@@ -28,11 +28,11 @@ import LibraryBtn from "../library/LibraryBtn.vue"
 import RestoreBtn from "../library/RestoreBtn.vue"
 import { FileSystemDirectoryHandleToDir, getLastWorkingDir,  } from "@vuk/fs/lib/web"
 import { Item, Status } from "@vuk/fs"
-createFs
 import { library, librarian, createFs } from "../library"
 import { file } from "../renderer/file"
 import {watch} from "vue"
 import { router } from "../routes"
+import { db } from "../db/dexie"
 let handle = ref(null as FileSystemDirectoryHandle | null)
 
 async function openBook(item:Item) {
@@ -51,17 +51,17 @@ async function setLibrary() {
         });
 
         if (!aDirHandle(_handle))
-            throw "Not a directory."
+            throw Error("Not a directory.")
         handle.value = _handle
     } catch (e) {
         console.log(e);
         return
     }
-    // await db.settings.put({
-    //     id: settings_id,
-    //     lastDir: handle,
-    //     speechRate: 0 //TODO migrate settings to dexie
-    // })
+    await db.settings.put({
+        id: SETTINGS_ID,
+        lastDir: handle.value,
+        // speechRate: 0 //TODO migrate settings to dexie
+    })
     restoreLibrary();
 }
 async function restoreLibIfUnset() {
@@ -70,11 +70,11 @@ async function restoreLibIfUnset() {
 
     return restoreLibrary()
 }
+const SETTINGS_ID=1
 async function restoreLibrary() {
     const res = await getLastWorkingDir(async() => {
-        // await db.settings.get(settings_id)
-        // TODO NEW DEXIE
-        return unref(handle.value)
+        const settings = await db.settings.get(SETTINGS_ID)
+        return settings?.lastDir ?? handle.value
     });
     if (!res.handle)
         return;

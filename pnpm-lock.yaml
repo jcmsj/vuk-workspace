@@ -74,18 +74,30 @@ importers:
       '@jcsj/epub':
         specifier: workspace:*
         version: link:../epub
+      '@jcsj/generate-selector':
+        specifier: ^0.0.3
+        version: 0.0.3
       '@vueuse/components':
         specifier: ^10.10.0
         version: 10.10.0(vue@3.4.27(typescript@5.4.5))
       '@vueuse/core':
         specifier: ^10.10.0
         version: 10.10.0(vue@3.4.27(typescript@5.4.5))
+      '@vueuse/rxjs':
+        specifier: ^10.10.0
+        version: 10.10.0(rxjs@7.8.1)(vue@3.4.27(typescript@5.4.5))
       '@vuk/fs':
         specifier: workspace:*
         version: link:../fs
       daisyui:
         specifier: ^4.11.1
         version: 4.11.1(postcss@8.4.38)
+      dexie:
+        specifier: ^4.0.7
+        version: 4.0.7
+      rxjs:
+        specifier: ^7.8.1
+        version: 7.8.1
       tailwindcss:
         specifier: ^3.4.3
         version: 3.4.3
@@ -515,6 +527,9 @@ packages:
   '@jcsj/emit@0.1.1':
     resolution: {integrity: sha512-rrQe3nHlsejjuY4YDl6rh8TVZplNaNb6wi5XhwsCLAA9+7gwGTVPrwZ6RhxItzKc6cLesvydzHkxf9EVtXyVqw==}
 
+  '@jcsj/generate-selector@0.0.3':
+    resolution: {integrity: sha512-nEHN6Lcy7YDYQNzfA3EhvIzUSobutlRKxPPns0/89fGYanB+BZf99gM4DIWyZItUKAB8GEOhC7flPPdRfWPPhw==}
+
   '@jcsj/sax@2.0.0-beta.1':
     resolution: {integrity: sha512-PCk9/1hCVusdWipsuuXcs6rHCNtUFKxDzzNJW/nOW7jfAs+X3Wb/5sWioKds+1GiZEC3IGTIk6387U/VspdTag==}
 
@@ -913,6 +928,11 @@ packages:
   '@vueuse/metadata@10.10.0':
     resolution: {integrity: sha512-UNAo2sTCAW5ge6OErPEHb5z7NEAg3XcO9Cj7OK45aZXfLLH1QkexDcZD77HBi5zvEiLOm1An+p/4b5K3Worpug==}
 
+  '@vueuse/rxjs@10.10.0':
+    resolution: {integrity: sha512-gGziL1ImRb6M6P7BIPIWg9bk0qbZWIdSmXNwUlwlPi/tu6c4bBa4tfz4jqaL3ayQ2jOj8GTYea2Kg/8Afp+/ew==}
+    peerDependencies:
+      rxjs: '>=6.0.0'
+
   '@vueuse/shared@10.10.0':
     resolution: {integrity: sha512-2aW33Ac0Uk0U+9yo3Ypg9s5KcR42cuehRWl7vnUHadQyFvCktseyxxEPBi1Eiq4D2yBGACOnqLZpx1eMc7g5Og==}
 
@@ -1231,6 +1251,9 @@ packages:
   detect-newline@3.1.0:
     resolution: {integrity: sha512-TLz+x/vEXm/Y7P7wn1EJFNLxYpUD4TgMosxY6fAVJUnJMbupHBOncxyWUG9OpTaH9EBD7uFI5LfEgmMOc54DsA==}
     engines: {node: '>=8'}
+
+  dexie@4.0.7:
+    resolution: {integrity: sha512-M+Lo6rk4pekIfrc2T0o2tvVJwL6EAAM/B78DNfb8aaxFVoI1f8/rz5KTxuAnApkwqTSuxx7T5t0RKH7qprapGg==}
 
   didyoumean@1.2.2:
     resolution: {integrity: sha512-gxtyfqMg7GKyhQmb056K7M3xszy/myH8w+B4RT+QXBQsvAOdc3XymqDDPHx1BgPgsdAA5SIifona89YtRATDzw==}
@@ -2155,6 +2178,9 @@ packages:
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
 
+  rxjs@7.8.1:
+    resolution: {integrity: sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==}
+
   safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
@@ -2341,6 +2367,9 @@ packages:
         optional: true
       esbuild:
         optional: true
+
+  tslib@2.6.2:
+    resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
 
   type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
@@ -2947,6 +2976,8 @@ snapshots:
 
   '@jcsj/emit@0.1.1': {}
 
+  '@jcsj/generate-selector@0.0.3': {}
+
   '@jcsj/sax@2.0.0-beta.1': {}
 
   '@jcsj/xml-js@2.0.0-beta.2':
@@ -3481,6 +3512,15 @@ snapshots:
 
   '@vueuse/metadata@10.10.0': {}
 
+  '@vueuse/rxjs@10.10.0(rxjs@7.8.1)(vue@3.4.27(typescript@5.4.5))':
+    dependencies:
+      '@vueuse/shared': 10.10.0(vue@3.4.27(typescript@5.4.5))
+      rxjs: 7.8.1
+      vue-demi: 0.14.8(vue@3.4.27(typescript@5.4.5))
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
+
   '@vueuse/shared@10.10.0(vue@3.4.27(typescript@5.4.5))':
     dependencies:
       vue-demi: 0.14.8(vue@3.4.27(typescript@5.4.5))
@@ -3802,6 +3842,8 @@ snapshots:
   delayed-stream@1.0.0: {}
 
   detect-newline@3.1.0: {}
+
+  dexie@4.0.7: {}
 
   didyoumean@1.2.2: {}
 
@@ -4931,6 +4973,10 @@ snapshots:
     dependencies:
       queue-microtask: 1.2.3
 
+  rxjs@7.8.1:
+    dependencies:
+      tslib: 2.6.2
+
   safer-buffer@2.1.2: {}
 
   saxes@6.0.0:
@@ -5114,6 +5160,8 @@ snapshots:
       '@jest/transform': 29.7.0
       '@jest/types': 29.6.3
       babel-jest: 29.7.0(@babel/core@7.24.6)
+
+  tslib@2.6.2: {}
 
   type-check@0.4.0:
     dependencies:
