@@ -3,20 +3,22 @@
 	"private": false,
 	"version": "0.1.0",
 	"description": "Filesystem support for Vuk",
-	"type": "module",	
+	"type": "module",
 	"main": "./lib/index.ts",
 	"files": [
 		"lib"
 	],
-	"include": ["lib/**/*.ts"],
+	"include": [
+		"lib/**/*.ts"
+	],
 	"author": {
 		"email": "sanjuan.jeancarlo@gmail.com",
 		"name": "San Juan, Jean Carlo",
 		"url": "https://github.com/jcmsj/"
-	  },
+	},
 	"devDependencies": {
-		"@types/node": "^20.11.8",
-		"@types/wicg-file-system-access": "^2023.10.4",
-		"typescript": "^5.3.3"
+		"@types/node": "^20.13.0",
+		"@types/wicg-file-system-access": "^2023.10.5",
+		"typescript": "^5.4.5"
 	}
 }

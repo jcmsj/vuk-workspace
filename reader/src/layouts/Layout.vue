@@ -82,7 +82,5 @@ const outsideHome = computed(() => route.fullPath != '/');
 }
 </style>
 <style scoped>
-    .encircled-nav {
-        
-    }
+
 </style>
