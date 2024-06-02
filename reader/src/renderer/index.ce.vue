@@ -1,10 +1,10 @@
 <template>
     <EpubStyle :epub="epub" v-if="epub" />
-    <div v-for="page in pages" v-html="page.html" :ch="page.id" :id="page.id">
+    <div v-for="page in pages.pages" v-html="page.html" :ch="page.id" :id="page.id">
     </div>
 </template>
 <script setup lang="ts">
-import { Enhanced } from './EnhancedEpub';
+import { Enhanced, LoadedChapter } from './EnhancedEpub';
 import { asyncComputed } from '@vueuse/core';
 import EpubStyle from "./EpubStyle.vue"
 import { ProgressEvents } from "@jcsj/epub/lib/Parts";
@@ -13,6 +13,7 @@ import TOC from "../TOC";
 import DevMode from "../settings/DevMode";
 import { Book, db } from '../db/dexie';
 import { book } from '../bookmarks';
+import { reactive, watch } from 'vue';
 
 defineOptions({
     inheritAttrs: false,
@@ -56,7 +57,7 @@ const withLogs: ProgressEvents = {
     toc(toc) {
         console.log("TOC: ", toc);
         TOC.items = toc
-    }
+    },
 }
 
 const noLogs: ProgressEvents = {
@@ -70,7 +71,7 @@ const noLogs: ProgressEvents = {
     },
     toc(toc) {
         TOC.items = toc
-    }
+    },
 }
 const props = defineProps<{
     file: File
@@ -79,9 +80,13 @@ const epub = asyncComputed(() => Enhanced({
     blob: props.file,
     events: DevMode.value ? withLogs : noLogs
 }))
-const pages = asyncComputed(() => epub.value?.loadAll())
 
-
+const pages = reactive<{pages:LoadedChapter[]}>({
+    pages:[]
+}) 
+watch(epub, async(epub) => {
+    pages.pages = (await epub.loadAll()) ?? []
+})
 
 </script>
 <style src="./src/css/tailwind.css"></style>
