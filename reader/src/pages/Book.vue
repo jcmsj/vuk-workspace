@@ -1,5 +1,5 @@
 <template>
-    <renderer-element class="max-w-full lg:w-[60vw] overflow-auto resize-x self-center" style="height: 100vh;" :file=file v-if="file" ref="root" />
+    <renderer-element class="max-w-full lg:w-[60vw] resize-x self-center p-2" style="height: 100vh; overflow:auto" :file=file v-if="file" ref="root" />
 </template>
 <script setup lang="ts">
 // Must use inline style, tailwind doesnt work on this one

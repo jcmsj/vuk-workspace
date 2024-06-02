@@ -1,9 +1,7 @@
 <template>
-    <main class="p-2">
-        <EpubStyle :epub="epub" v-if="epub"/>
-        <div v-for="page in pages" v-html="page.html" :ch="page.id" :id="page.id">
-        </div>
-    </main>
+    <EpubStyle :epub="epub" v-if="epub"/>
+    <div v-for="page in pages" v-html="page.html" :ch="page.id" :id="page.id">
+    </div>
 </template>
 <script setup lang="ts">
 import { Enhanced } from './EnhancedEpub';
@@ -14,6 +12,9 @@ import { useTitle } from "@vueuse/core";
 import TOC from "../TOC";
 import DevMode from "../settings/DevMode";
 
+defineOptions({
+    inheritAttrs: false,
+})
 const withLogs: ProgressEvents = {
     async root() {
         TOC.items.clear()

@@ -22,6 +22,7 @@
                 /* Sizing */
                 object-fit: contain;
                 max-height: 80vh !important;
+                max-width: 95% !important;
                 /* Aligns center */
                 margin-inline: auto;
                 display: block;
