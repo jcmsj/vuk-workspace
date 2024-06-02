@@ -7,7 +7,10 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    'Mdi:bookmark': typeof import('~icons/mdi/bookmark')['default']
     'Mdi:bookOpenBlankVariant': typeof import('~icons/mdi/book-open-blank-variant')['default']
+    'Mdi:contentCopy': typeof import('~icons/mdi/content-copy')['default']
+    'Mdi:volume': typeof import('~icons/mdi/volume')['default']
     MdiBook: typeof import('~icons/mdi/book')['default']
     MdiBookmark: typeof import('~icons/mdi/bookmark')['default']
     MdiCaret: typeof import('~icons/mdi/caret')['default']

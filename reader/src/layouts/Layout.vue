@@ -4,51 +4,53 @@
       <upload-btn upload-span-class="sidebar-label" />
     </li>
     <li>
-        <nav-link to="/files" spanClass="sidebar-label">
-          <template #icon>
-            <mdi-folder class="sidebar-icon" />
-          </template>
-          Files
-        </nav-link>
+      <nav-link to="/files" spanClass="sidebar-label">
+        <template #icon>
+          <mdi-folder class="sidebar-icon" />
+        </template>
+        Files
+      </nav-link>
     </li>
     <li>
-        <nav-link to="/toc" spanClass="sidebar-label">
-          <template #icon>
-            <mdi-format-list-bulleted class="sidebar-icon" />
-          </template>
-          TOC
-        </nav-link>
+      <nav-link to="/toc" spanClass="sidebar-label">
+        <template #icon>
+          <mdi-format-list-bulleted class="sidebar-icon" />
+        </template>
+        TOC
+      </nav-link>
     </li>
     <li>
-        <nav-link to="/"  spanClass="sidebar-label">
-          <template #icon>
-            <mdi:book-open-blank-variant class="sidebar-icon" />
-          </template>
-          Read
-        </nav-link>
+      <nav-link to="/" spanClass="sidebar-label">
+        <template #icon>
+          <mdi:book-open-blank-variant class="sidebar-icon" />
+        </template>
+        Read
+      </nav-link>
     </li>
     <li>
-        <nav-link to="/bookmarks" spanClass="sidebar-label">
-          <template #icon>
-            <mdi-bookmark class="sidebar-icon" />
-          </template>
-          Bookmarks
-        </nav-link>
+      <nav-link to="/bookmarks" spanClass="sidebar-label">
+        <template #icon>
+          <mdi-bookmark class="sidebar-icon" />
+        </template>
+        Bookmarks
+      </nav-link>
     </li>
     <li>
-        <nav-link to="/settings" spanClass="sidebar-label">
-          <template #icon>
-            <mdi-cog class="sidebar-icon" />
-          </template>
-          Settings
-        </nav-link>
+      <nav-link to="/settings" spanClass="sidebar-label">
+        <template #icon>
+          <mdi-cog class="sidebar-icon" />
+        </template>
+        Settings
+      </nav-link>
     </li>
   </ul>
   <div class="flex flex-col w-full">
-      <router-view v-slot="{Component, route}">
-          <component :is="Component" :key="route.path" class="sticky top-0 bg-base-100" :class="{'min-h-screen':outsideHome}"/>
-      </router-view>
-    <book-vue :class="{'overflow-hidden': outsideHome}" />
+    <router-view v-slot="{ Component, route }">
+      <component :is="Component" :key="route.path" class="sticky top-0 bg-base-100"
+        :class="{ 'min-h-screen': outsideHome }" />
+    </router-view>
+    <book-vue :class="{ 'overflow-hidden': outsideHome }" @click.right.prevent="showContextMenu($event)" />
+    <ReaderContextMenu v-model:location="desiredLocation" />
   </div>
   <div class="btm-nav md:hidden">
     <upload-btn />
@@ -56,13 +58,13 @@
       <template #icon>
         <mdi-folder class="botbarIcon" />
       </template>
-        Files
+      Files
     </nav-link>
     <nav-link to="/toc">
       <template #icon>
         <mdi-format-list-bulleted class="botbarIcon" />
       </template>
-        TOC
+      TOC
     </nav-link>
     <nav-link to="/">
       <template #icon>
@@ -74,13 +76,13 @@
       <template #icon>
         <mdi-bookmark class="botbarIcon" />
       </template>
-        Bookmarks
+      Bookmarks
     </nav-link>
     <nav-link to="/settings">
       <template #icon>
         <mdi-cog class="botbarIcon" />
       </template>
-        Settings
+      Settings
     </nav-link>
   </div>
 </template>
@@ -90,8 +92,13 @@ import UploadBtn from '../library/UploadBtn.vue';
 import NavLink from '../components/NavLink.vue';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
+import { useContextMenu } from '../composables/useContextMenu';
+import ReaderContextMenu from '../contextMenu/ReaderContextMenu.vue';
+
+const { desiredLocation, show: showContextMenu } = useContextMenu()
 const route = useRoute()
 const outsideHome = computed(() => route.name != 'root');
+
 </script>
 <style>
 #app {
@@ -102,9 +109,11 @@ const outsideHome = computed(() => route.name != 'root');
 .sidebar-icon {
   @apply w-6 h-6;
 }
+
 :deep(.sidebar-label) {
   @apply hidden xl:block;
 }
+
 .botbarIcon {
   @apply w-6 h-6;
 }

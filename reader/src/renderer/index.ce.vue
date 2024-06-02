@@ -15,6 +15,7 @@ import DevMode from "../settings/DevMode";
 defineOptions({
     inheritAttrs: false,
 })
+
 const withLogs: ProgressEvents = {
     async root() {
         TOC.items.clear()
@@ -57,6 +58,9 @@ const epub = asyncComputed(() => Enhanced({
     events: DevMode.value ? withLogs : noLogs
 }))
 const pages = asyncComputed(() => epub.value?.loadAll())
+
+
+
 </script>
 <style src="./src/css/tailwind.css">
 
