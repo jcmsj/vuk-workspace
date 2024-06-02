@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy-beta": "pnpm build && pnpm wrangler pages deploy dist --project-name vuk --branch beta"
   },
   "dependencies": {
     "@jcsj/arraymap": "^0.0.4",

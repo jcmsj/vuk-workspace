@@ -9,7 +9,6 @@ declare module 'vue' {
   export interface GlobalComponents {
     'Mdi:bookmark': typeof import('~icons/mdi/bookmark')['default']
     'Mdi:bookOpenBlankVariant': typeof import('~icons/mdi/book-open-blank-variant')['default']
-    'Mdi:close': typeof import('~icons/mdi/close')['default']
     'Mdi:contentCopy': typeof import('~icons/mdi/content-copy')['default']
     'Mdi:trashCan': typeof import('~icons/mdi/trash-can')['default']
     'Mdi:volume': typeof import('~icons/mdi/volume')['default']
