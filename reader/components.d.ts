@@ -16,6 +16,7 @@ declare module 'vue' {
     MdiFormatListBulleted: typeof import('~icons/mdi/format-list-bulleted')['default']
     MdiReload: typeof import('~icons/mdi/reload')['default']
     MdiUpload: typeof import('~icons/mdi/upload')['default']
+    NavLink: typeof import('./src/components/NavLink.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

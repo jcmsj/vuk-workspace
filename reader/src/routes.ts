@@ -10,6 +10,7 @@ import TOC from './TOC/TOC.vue'
 const routes:RouteRecordRaw[] = [
     { 
         path: '/', 
+        name: 'root',
         component: Layout,
         children: [
             {

@@ -1,37 +1,47 @@
 <template>
   <ul class="menu bg-base-200 max-w-56 rounded-r-box h-screen hidden md:flex sticky top-0">
     <li>
-      <upload-btn />
+      <upload-btn upload-span-class="sidebar-label" />
     </li>
     <li>
-      <router-link :class="{'active':$route.fullPath=='/files'}" to="/files">
-          <mdi-folder class="w-6 h-6"/>
-          <span class="hidden 2xl:block">Files</span>
-        </router-link>
+        <nav-link to="/files" spanClass="sidebar-label">
+          <template #icon>
+            <mdi-folder class="sidebar-icon" />
+          </template>
+          Files
+        </nav-link>
     </li>
     <li>
-      <router-link :class="{'active':$route.fullPath=='/toc'}"  to="/toc">
-          <mdi-format-list-bulleted class="w-6 h-6"/>
-          <span class="hidden 2xl:block">TOC</span>
-        </router-link>
+        <nav-link to="/toc" spanClass="sidebar-label">
+          <template #icon>
+            <mdi-format-list-bulleted class="sidebar-icon" />
+          </template>
+          TOC
+        </nav-link>
     </li>
     <li>
-      <router-link :class="{'active':$route.fullPath=='/'}"  to="/">
-          <mdi:book-open-blank-variant class="w-6 h-6" />
-          <span class="hidden 2xl:block">Read</span>
-        </router-link>
+        <nav-link to="/"  spanClass="sidebar-label">
+          <template #icon>
+            <mdi:book-open-blank-variant class="sidebar-icon" />
+          </template>
+          Read
+        </nav-link>
     </li>
     <li>
-      <router-link :class="{'active':$route.fullPath=='/bookmarks'}" to="/bookmarks">
-          <mdi-bookmark class="w-6 h-6" />
-          <span class="hidden 2xl:block">Bookmarks</span>
-        </router-link>
+        <nav-link to="/bookmarks" spanClass="sidebar-label">
+          <template #icon>
+            <mdi-bookmark class="sidebar-icon" />
+          </template>
+          Bookmarks
+        </nav-link>
     </li>
     <li>
-      <router-link :class="{'active':$route.fullPath=='/settings'}" to="/settings">
-          <mdi-cog class="w-6 h-6" />
-          <span class="hidden 2xl:block">Settings</span>
-        </router-link>
+        <nav-link to="/settings" spanClass="sidebar-label">
+          <template #icon>
+            <mdi-cog class="sidebar-icon" />
+          </template>
+          Settings
+        </nav-link>
     </li>
   </ul>
   <div class="flex flex-col w-full">
@@ -40,41 +50,48 @@
       </router-view>
     <book-vue :class="{'overflow-hidden': outsideHome}" />
   </div>
-  <div class="btm-nav [&>button_>_span]:btm-nav-label md:hidden">
-    <div @click="chooser?.click">
-      <mdi-upload class="w-6 h-6" title="Open an EPUB"/> 
-      <span>Upload</span>
-    </div>
-    <router-link :class="{'active':$route.fullPath=='/files'}" to="/files">
-      <mdi-folder />
-      <span>Files</span>
-    </router-link>
-    <router-link :class="{'active':$route.fullPath=='/toc'}"  to="/toc">
-      <mdi-format-list-bulleted />
-      <span>TOC</span>
-    </router-link>
-    <router-link :class="{'active':$route.fullPath=='/'}"  to="/">
-      <mdi:book-open-blank-variant />
-      <span>Read</span>
-    </router-link>
-    <router-link :class="{'active':$route.fullPath=='/bookmarks'}" to="/bookmarks">
-      <mdi-bookmark />
-      <span>Bookmarks</span>
-    </router-link>
-    <router-link :class="{'active':$route.fullPath=='/settings'}" to="/settings">
-      <mdi-cog />
-      <span>Settings</span>
-    </router-link>
+  <div class="btm-nav md:hidden">
+    <upload-btn />
+    <nav-link to="/files">
+      <template #icon>
+        <mdi-folder class="botbarIcon" />
+      </template>
+        Files
+    </nav-link>
+    <nav-link to="/toc">
+      <template #icon>
+        <mdi-format-list-bulleted class="botbarIcon" />
+      </template>
+        TOC
+    </nav-link>
+    <nav-link to="/">
+      <template #icon>
+        <mdi:book-open-blank-variant class="botbarIcon" />
+      </template>
+      Read
+    </nav-link>
+    <nav-link to="/bookmarks">
+      <template #icon>
+        <mdi-bookmark class="botbarIcon" />
+      </template>
+        Bookmarks
+    </nav-link>
+    <nav-link to="/settings">
+      <template #icon>
+        <mdi-cog class="botbarIcon" />
+      </template>
+        Settings
+    </nav-link>
   </div>
 </template>
 <script setup lang="ts">
 import BookVue from '../pages/Book.vue';
 import UploadBtn from '../library/UploadBtn.vue';
+import NavLink from '../components/NavLink.vue';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
-
 const route = useRoute()
-const outsideHome = computed(() => route.fullPath != '/');
+const outsideHome = computed(() => route.name != 'root');
 </script>
 <style>
 #app {
@@ -82,5 +99,13 @@ const outsideHome = computed(() => route.fullPath != '/');
 }
 </style>
 <style scoped>
-
+.sidebar-icon {
+  @apply w-6 h-6;
+}
+:deep(.sidebar-label) {
+  @apply hidden xl:block;
+}
+.botbarIcon {
+  @apply w-6 h-6;
+}
 </style>
