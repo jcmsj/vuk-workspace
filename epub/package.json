@@ -1,0 +1,43 @@
+{
+  "name": "@jcsj/epub",
+  "private": false,
+  "version": "2.0.41",
+  "description": "An Epub parser for the web.",
+  "main": "./lib/index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "books",
+    "ebook",
+    "epub",
+    "epub-parser",
+    "parser"
+  ],
+  "author": "Jean Carlo M. San Juan",
+  "files": [
+    "lib/*"
+  ],
+  "dependencies": {
+    "@jcsj/arraymap": "^0.0.4",
+    "@jcsj/emit": "^0.1.1",
+    "@jcsj/xml-js": "2.0.0-beta.2",
+    "@zip.js/zip.js": "^2.7.45"
+  },
+  "devDependencies": {
+    "@jest/types": "^29.6.3",
+    "@types/jest": "^29.5.12",
+    "@types/mocha": "^10.0.6",
+    "@typescript-eslint/eslint-plugin": "^7.11.0",
+    "@typescript-eslint/parser": "^7.11.0",
+    "eslint": "^9.4.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "ts-jest": "^29.1.4",
+    "typescript": "^5.4.5"
+  },
+  "license": "ISC"
+}
