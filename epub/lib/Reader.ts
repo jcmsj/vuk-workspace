@@ -74,13 +74,13 @@ export class Reader extends ZipReader<Uint8Array> implements ReaderLike {
 
     async read(key: string, type?: string): Promise<LoadedEntry> {
         const file = this.entries.get(key); 
-        if (file) {
-            // FIXME: getData might be undefined
-            (file as LoadedEntry).data = await file.getData!(
-                this.determineWriter(type),
-                {});
-        }
-
+        const data:Blob|undefined = await file?.getData?.(
+            this.determineWriter(type),
+            {});
+        if (!data)
+            throw new Error(`File ${key} not found`);
+        
+        (file as LoadedEntry).data = data
         return file as LoadedEntry;
     }
 
