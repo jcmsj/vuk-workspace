@@ -2,3 +2,4 @@ packages:
   - reader
   - fs
   - epub
+  - transcript
