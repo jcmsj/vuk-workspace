@@ -2,6 +2,9 @@
     <router-view />
 </template>
 <script setup lang="ts">
+import { watchTheme } from './settings';
+
+watchTheme()
 </script>
 <style>
 body {
@@ -10,7 +13,6 @@ body {
 #app {
   @apply min-h-screen;
   @apply overflow-hidden;
-
 }
 
 </style>

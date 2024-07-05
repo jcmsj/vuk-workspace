@@ -5,6 +5,7 @@ import Layout from './layouts/Layout.vue'
 import Files from './pages/Files.vue'
 import TOC from './TOC/TOC.vue'
 import Bookmarks from './pages/Bookmarks.vue'
+import Settings from './pages/Settings.vue'
 // 2. Define some routes
 // Each route should map to a component.
 // We'll talk about nested routes later.
@@ -28,6 +29,12 @@ const routes:RouteRecordRaw[] = [
                 path: "bookmarks",
                 name: "bookmarks",
                 component: Bookmarks,
+            },
+            {
+                // settings
+                path: "settings",
+                name: "settings",
+                component: Settings,
             },
             {
                 // Always leave this as last one,

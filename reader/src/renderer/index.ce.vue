@@ -10,7 +10,7 @@ import EpubStyle from "./EpubStyle.vue"
 import { ProgressEvents } from "@jcsj/epub/lib/Parts";
 import { useTitle } from "@vueuse/core";
 import TOC from "../TOC";
-import DevMode from "../settings/DevMode";
+import {settings} from "../settings";
 import { Book, db } from '../db/dexie';
 import { book } from '../bookmarks';
 import { reactive, watch } from 'vue';
@@ -78,7 +78,7 @@ const props = defineProps<{
 }>()
 const epub = asyncComputed(() => Enhanced({
     blob: props.file,
-    events: DevMode.value ? withLogs : noLogs
+    events: settings.value?.devMode ? withLogs : noLogs
 }))
 
 const pages = reactive<{pages:LoadedChapter[]}>({

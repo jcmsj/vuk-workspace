@@ -20,6 +20,7 @@ export interface Settings {
     speechRate:number,
     theme:string,
     speechPanel:boolean,
+    devMode:boolean,
 }
 
 export class VukDB extends Dexie {

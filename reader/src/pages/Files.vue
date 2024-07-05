@@ -16,11 +16,9 @@
 </div>
 </template>
 <script setup lang=ts>
-import { onMounted, ref, unref } from "vue"
+import { onMounted, ref } from "vue"
 import { onKeyUp } from "@vueuse/core"
 // import { loadBook } from "./fileReader"
-// import { db } from "../db/dexie"
-// import { settings_id } from 'src/settings/settings_id';
 import { aDirHandle } from "../library/util"
 // import BaseActions from "../library/BaseActions.vue"
 import VListing from "../fs/Listing.vue"
@@ -33,6 +31,7 @@ import { file } from "../renderer/file"
 import {watch} from "vue"
 import { router } from "../routes"
 import { db } from "../db/dexie"
+import { SETTINGS_ID } from "../settings"
 let handle = ref(null as FileSystemDirectoryHandle | null)
 
 async function openBook(item:Item) {
@@ -57,7 +56,7 @@ async function setLibrary() {
         console.log(e);
         return
     }
-    await db.settings.put({
+    await db.settings.update(SETTINGS_ID, {
         id: SETTINGS_ID,
         lastDir: handle.value,
         // speechRate: 0 //TODO migrate settings to dexie
@@ -70,11 +69,10 @@ async function restoreLibIfUnset() {
 
     return restoreLibrary()
 }
-const SETTINGS_ID=1
 async function restoreLibrary() {
     const res = await getLastWorkingDir(async() => {
         const settings = await db.settings.get(SETTINGS_ID)
-        return settings?.lastDir ?? handle.value
+        return settings?.lastDir ?? handle.value ?? undefined
     });
     if (!res.handle)
         return;

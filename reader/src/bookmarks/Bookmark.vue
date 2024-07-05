@@ -11,19 +11,18 @@
 <script setup lang="ts">
 import { Book, BookmarkTable, db } from '../db/dexie';
 import { liveQuery } from "dexie";
-import { useObservable } from "@vueuse/rxjs";
+import { useObservable,from } from "@vueuse/rxjs";
 import BookmarkItem from './BookmarkItem.vue';
 import { useRouter } from 'vue-router';
 import { BOOKMARK_CLASS, Bookmark } from '.';
 const props = defineProps<Book>()
-//TODO: fix type
 const bookmarks  = useObservable<BookmarkTable[]>(
-    liveQuery(() => {
-        return db.bookmarks
+    from(liveQuery(async() => {
+        return await db.bookmarks
             .where("bookId").equals(props.id)
             // https://dexie.org/docs/Collection/Collection.sortBy()
             .sortBy("percentage")
-    })
+    }))
 )
 
 const router = useRouter()
