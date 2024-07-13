@@ -18,7 +18,7 @@ export default defineConfig({
       },
       template: {
         compilerOptions: {
-          isCustomElement: tag => tag === 'renderer-element'
+          isCustomElement: tag => ['renderer-element', 'transcript-element'].includes(tag),
         }
       }
     }),

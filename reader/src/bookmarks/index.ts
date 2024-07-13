@@ -33,30 +33,31 @@ export async function onClick(composedPath: EventTarget[]) {
     const target: EventTarget = composedPath[0];
     console.log(composedPath)
 
-    if (target instanceof HTMLElement) {
-        const selector = generateSelector(target);
-        target.classList.add(BOOKMARK_CLASS);
-        const percentage = calcScrollPercentage(composedPath);
-        // const percentage = getScrollPercentage(target);
-        const bookmark: Bookmark = {
-            percentage,
-            selector,
-            text: target.textContent?.substring(0,trimLength.value) || ""
-        }
-        const title = useTitle()
-        if (!title.value) {
-            throw new Error("No title found");
-        };
-        if (book.value) {
-            db.bookmarks.add({
-                ...bookmark,
-                bookId: book.value.id,
-            })
-        } else {
-            throw new Error("No book found");
-        }
-        console.log(bookmark);
+    if (!(target instanceof HTMLElement)) {
+        throw new Error("Target is not an HTMLElement");
     }
+    const selector = generateSelector(target);
+    target.classList.add(BOOKMARK_CLASS);
+    const percentage = calcScrollPercentage(composedPath);
+    // const percentage = getScrollPercentage(target);
+    const bookmark: Bookmark = {
+        percentage,
+        selector,
+        text: target.textContent?.substring(0,trimLength.value) || ""
+    }
+    const title = useTitle()
+    if (!title.value) {
+        throw new Error("No title found");
+    };
+    if (book.value) {
+        db.bookmarks.add({
+            ...bookmark,
+            bookId: book.value.id,
+        })
+    } else {
+        throw new Error("No book found");
+    }
+    console.log(bookmark);
 }
 
 export const book = ref<Book>()

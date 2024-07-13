@@ -18,6 +18,8 @@ declare module 'vue' {
     MdiCog: typeof import('~icons/mdi/cog')['default']
     MdiFolder: typeof import('~icons/mdi/folder')['default']
     MdiFormatListBulleted: typeof import('~icons/mdi/format-list-bulleted')['default']
+    MdiPause: typeof import('~icons/mdi/pause')['default']
+    MdiPlay: typeof import('~icons/mdi/play')['default']
     MdiReload: typeof import('~icons/mdi/reload')['default']
     MdiUpload: typeof import('~icons/mdi/upload')['default']
     NavLink: typeof import('./src/components/NavLink.vue')['default']

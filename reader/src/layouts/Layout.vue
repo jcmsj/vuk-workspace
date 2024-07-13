@@ -45,6 +45,7 @@
     </li>
   </ul>
   <div class="flex flex-col w-full">
+    <TTSMenu :isReading @pause="stop()" @play="start()" />
     <router-view v-slot="{ Component, route }">
       <component :is="Component" :key="route.path" class="sticky top-0 bg-base-100"
         :class="{ 'min-h-screen': outsideHome }" />
@@ -90,29 +91,42 @@
 import BookVue from '../pages/Book.vue';
 import UploadBtn from '../library/UploadBtn.vue';
 import NavLink from '../components/NavLink.vue';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
+import {onClick as onBookmarkClick} from "../bookmarks"
 import { useContextMenu } from '../composables/useContextMenu';
 import ReaderContextMenu from '../contextMenu/ReaderContextMenu.vue';
-import {onClick as onBookmarkClick} from "../bookmarks"
+import { useSpeechSynthesis } from '../textToSpeech/useSpeechSynthesis';
+import { useVoice } from '../textToSpeech/useVoice';
+import { rootTreeWalker } from '../renderer/root';
+import TTSMenu from '../textToSpeech/Menu.vue';
 const { desiredLocation, show: showContextMenu, mouseEvent } = useContextMenu()
 const route = useRoute()
 const outsideHome = computed(() => route.name != 'root');
+const {voice} = useVoice()
+const {setTranscriptFromEvent,isReading,stop,start} = useSpeechSynthesis({
+  key: {
+    speechRate: 'speechRate',
+  },
+  voice,
+  treeWalker: rootTreeWalker,
+})
 
 function onSelect(option: 'read-aloud' | 'bookmark' | 'copy') {
+  console.log('Selected', option)
+  if (!mouseEvent.value) {
+    throw Error('No mouse event')
+  }
   if (option == 'bookmark') {
-    console.log('Bookmarking')
-    if  (mouseEvent.value) {
-      onBookmarkClick(mouseEvent.value)
-    } else {
-      throw Error('No mouse event')
-    }
+    onBookmarkClick(mouseEvent.value)
   } else if (option == 'read-aloud') {
-    console.log('Reading aloud')
+    setTranscriptFromEvent(mouseEvent.value)
   } else {
-    console.log('Copying')
+    
+    // TODO
   }
 }
+
 </script>
 <style>
 #app {
