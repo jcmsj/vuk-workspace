@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <span>
     <component is="style">
     :host {
       display: inline;
@@ -19,7 +19,7 @@
         {{ split.text }}
       </template>
     </template>
-  </div>
+  </span>
 </template>
 <script setup lang="ts">
 import { computed } from 'vue';
