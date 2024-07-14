@@ -1,4 +1,5 @@
 <template>
+    <!-- @vue-ignore -->
     <renderer-element class="max-w-full lg:w-[60vw] resize-x self-center p-2" style="height: 100vh; overflow:auto" :file=file v-if="file" ref="root" v-shadow-click="e => emit('click',e)">
     </renderer-element>
 </template>

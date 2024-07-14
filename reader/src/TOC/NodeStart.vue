@@ -1,7 +1,7 @@
 <template>
     <li :active="active" class="node">
         <div v-if="level > maxDepth"></div>
-        <template v-else v-for="[key, item] of items">
+        <template v-else v-for="[_, item] of items">
             <NodeEnd v-if="item.navPoint" :item="item as Required<Chapter>" :level="level + 1" />
             <ItemLink v-bind="item" />
         </template>

@@ -4,6 +4,7 @@
     <div class="m-auto w-full flex flex-col self-center">
         <div class="divider divider-primary text-lg w-full">Settings</div>
         <!-- theme -->
+         <!-- @vue-ignore -->
         <select  class="select self-center w-full max-w-52" :value="theme" @change="v => setTheme(v.currentTarget.value)">
             <option value="light">Light</option>
             <option value="night">Night</option>

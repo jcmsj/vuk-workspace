@@ -91,9 +91,9 @@
 import BookVue from '../pages/Book.vue';
 import UploadBtn from '../library/UploadBtn.vue';
 import NavLink from '../components/NavLink.vue';
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { useRoute } from 'vue-router';
-import {addTTsBookmark, fromElement, onClick as onBookmarkClick} from "../bookmarks"
+import {addTTsBookmark, onClick as onBookmarkClick} from "../bookmarks"
 import { useContextMenu } from '../composables/useContextMenu';
 import ReaderContextMenu from '../contextMenu/ReaderContextMenu.vue';
 import { useSpeechSynthesis } from '../textToSpeech/useSpeechSynthesis';

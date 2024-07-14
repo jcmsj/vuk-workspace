@@ -1,6 +1,6 @@
-import {computed, ref, watch} from "vue";
+import { ref, watch } from "vue";
 import { createTextTreeWalker } from "../textToSpeech/treeWalker";
-export const root = ref<{shadowRoot:ShadowRoot}>();
+export const root = ref<{ shadowRoot: ShadowRoot }>();
 export const rootTreeWalker = ref<TreeWalker>()
 
 watch(root, (newVal, oldVal) => {

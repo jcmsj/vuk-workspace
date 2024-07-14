@@ -13,7 +13,7 @@ const chooser = ref<HTMLInputElement>();
 defineProps<{
     uploadSpanClass?: string
 }>()
-async function selectFile(e: any) {
+async function selectFile(_: any) {
     if (chooser.value?.files?.length) {
         file.value = chooser.value.files[0]
         // loadBookFromFile(chooser.value.files[0])

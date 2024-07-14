@@ -56,7 +56,6 @@
 import { useSpeechRate } from './useSpeechSynthesis';
 import { useLocalStorage } from '@vueuse/core';
 import NumberSpinner from './NumberSpinner.vue';
-import { matchMediaSources } from '@jcsj/epub/lib/sanitize/matchSource';
 defineProps<{
   isReading: boolean
 }>()

@@ -42,7 +42,7 @@ const withLogs: ProgressEvents = {
     },
     async metadata(metadata) {
         console.log("Meta:", metadata);
-        const title = useTitle(metadata.title)
+        // const title = useTitle(metadata.title)
         book.value = await registerBook(metadata.title!)
     },
     manifest(manifest) {
