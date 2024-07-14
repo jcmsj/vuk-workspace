@@ -41,6 +41,9 @@ export function walkNav
     ({
         nav,
         level = 0
+    }: {
+        nav: Attribute,
+        level?: number
     },
         manifest: Manifest
     ) {
@@ -68,8 +71,14 @@ export function walkNavMap
         return output;
 
     let order = 0;
-    for (const part of toArray(branch)) {
-        let href: string = part.content._attributes.src;
+    for (const _part of toArray(branch)) {
+        const part: {
+            _attributes?: { id: string, playOrder: string, src: string },
+            navLabel?: { text: { _text: string } } | string,
+            navPoint?: any
+            content?: { _attributes?: { src?: string } }
+        } & TableOfContents = _part as any;
+        let href: string|undefined = part.content?._attributes?.src;
         
         if (href)
         href = path.concat([href.trim()]).join("/");
@@ -78,13 +87,16 @@ export function walkNavMap
         
         let title = "";
         try {
-            if (part.navLabel)
-                title = (part.navLabel.text._text || part.navLabel).trim() || ""
+            if (typeof part.navLabel == 'string' ) {
+                title = part.navLabel.trim() || ""
+            } else {
+                title = part.navLabel?.text._text.trim() || ""
+            }
         } catch (error) {
             //PASS
         }
 
-        if (part._attributes.playOrder) {
+        if (part._attributes?.playOrder) {
             const _order = parseInt(part._attributes.playOrder)
             if (isNaN(_order)) {
                 order++
@@ -102,7 +114,7 @@ export function walkNavMap
         };
 
         if (element.id === undefined) // use new one
-            element.id = part._attributes.id.trim() || "";
+            element.id = part._attributes?.id.trim() || "";
         else { // link existing object
             element = { ...manifest[element.id], title, order, level };
             element.navPoint = (part.navPoint) ?
