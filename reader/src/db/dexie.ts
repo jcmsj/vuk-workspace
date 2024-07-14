@@ -6,10 +6,9 @@ export interface Book {
     title: string,
 }
 
-export interface BookmarkTable extends Bookmark {
+export interface BookmarkRow extends Bookmark {
     id:number,
     bookId:number,
-    auto?:Bookmark,
 }
 
 //TODO: Migrate useLocalStorage keys with Settings
@@ -25,8 +24,9 @@ export interface Settings {
 
 export class VukDB extends Dexie {
     books!:EntityTable<Book, 'id'>;
-    bookmarks!: EntityTable<BookmarkTable, 'id'>;
+    bookmarks!: EntityTable<BookmarkRow, 'id'>;
     settings!:EntityTable<Settings, 'id'>;
+    tts!:EntityTable<BookmarkRow, 'id'>;
     constructor(
         databaseName: string, options?: DexieOptions
     ) {
@@ -34,6 +34,7 @@ export class VukDB extends Dexie {
         this.version(1).stores({
             books:"id++, title", //autoincrement id
             bookmarks:"id++, bookId",
+            tts:"id, bookId", // dont autoincrement since id == bookId
             settings:"id", //single row until multiple users are allowed
         })
     }

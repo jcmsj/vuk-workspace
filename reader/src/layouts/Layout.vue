@@ -93,7 +93,7 @@ import UploadBtn from '../library/UploadBtn.vue';
 import NavLink from '../components/NavLink.vue';
 import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import {onClick as onBookmarkClick} from "../bookmarks"
+import {addTTsBookmark, fromElement, onClick as onBookmarkClick} from "../bookmarks"
 import { useContextMenu } from '../composables/useContextMenu';
 import ReaderContextMenu from '../contextMenu/ReaderContextMenu.vue';
 import { useSpeechSynthesis } from '../textToSpeech/useSpeechSynthesis';
@@ -110,6 +110,10 @@ const {setTranscriptFromEvent,isReading,stop,start} = useSpeechSynthesis({
   },
   voice,
   treeWalker: rootTreeWalker,
+  onRead(n) {
+    // console.log('Reading', n.parentElement?.parentElement) 
+      addTTsBookmark(n.parentElement?.parentElement!)
+  },
 })
 
 function onSelect(option: 'read-aloud' | 'bookmark' | 'copy') {

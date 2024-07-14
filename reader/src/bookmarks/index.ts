@@ -1,6 +1,6 @@
 import generateSelector from "@jcsj/generate-selector"
 import getScrollPercentage from "../renderer/getScrollPercentage";
-import { Book, db } from "../db/dexie";
+import { Book, BookmarkRow, db } from "../db/dexie";
 import { useTitle } from "@vueuse/core";
 import { ref } from "vue";
 export interface Progress extends Object {
@@ -29,6 +29,8 @@ function calcScrollPercentage(composedPath: EventTarget[]): number {
     }, 0)
 }
 export const trimLength = ref<number>(64)
+
+
 export async function onClick(composedPath: EventTarget[]) {
     const target: EventTarget = composedPath[0];
     console.log(composedPath)
@@ -63,3 +65,29 @@ export async function onClick(composedPath: EventTarget[]) {
 export const book = ref<Book>()
 
 export const BOOKMARK_CLASS = "vuk-bookmark"
+
+export async function removeBookmark(b:BookmarkRow) {
+    await db.bookmarks.delete(b.id)
+}
+
+export function fromElement(elem: Element): Bookmark {
+    const selector = generateSelector(elem);
+    // TODO: Fix percentage calculation
+    const percentage = getScrollPercentage(elem);
+    const text = elem.textContent?.substring(0,trimLength.value) || "";
+    return {
+        percentage,
+        selector,
+        text,
+    }
+}
+export async function addTTsBookmark(n:Element) {
+    // delete tts bookmark for this book
+    if (!book.value) throw new Error("No book found")
+    const bookmark = fromElement(n)
+    await db.tts .put({
+        ...bookmark,
+        id: book.value.id,
+        bookId: book.value.id,
+    }, book.value.id)
+}

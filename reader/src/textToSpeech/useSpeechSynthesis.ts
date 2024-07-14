@@ -22,7 +22,7 @@ function revert(elem: InstanceType<typeof TranscriptElement>) {
   return old
 }
 
-export function useSpeechRate(key:string="speechRate") {
+export function useSpeechRate(key: string = "speechRate") {
   const speechRate = useLocalStorage(key, 1)
   const max = 2
   const min = 0.5
@@ -42,7 +42,7 @@ export function useSpeechRate(key:string="speechRate") {
     }
     speechRate.value -= step
   }
-  return { 
+  return {
     speechRate,
     increment,
     decrement,
@@ -54,15 +54,16 @@ export function useSpeechRate(key:string="speechRate") {
 /**
  * TODO: accept event handlers to implement features like bookmarking
  */
-export function useSpeechSynthesis({ key, treeWalker, voice }: {
+export function useSpeechSynthesis({ key, treeWalker, voice, onRead }: {
   key: {
     speechRate: string
   },
   treeWalker: Ref<TreeWalker | undefined>,
   voice: { value?: SpeechSynthesisVoice },
+  onRead?: (n: ChildNode) => void
 }) {
   const transcriptElem = shallowRef<InstanceType<typeof TranscriptElement>>()
-  const {speechRate} = useSpeechRate(key.speechRate)
+  const { speechRate } = useSpeechRate(key.speechRate)
   const isReading = ref(false)
   function onTranscriptEnd() {
     if (isReading.value) {
@@ -151,6 +152,7 @@ export function useSpeechSynthesis({ key, treeWalker, voice }: {
     isReading.value = true
     speak(n.textContent ?? "")
     follow()
+    onRead?.(n)
   }
 
   function start() {
