@@ -45,12 +45,12 @@
     </li>
   </ul>
   <div class="flex flex-col w-full">
-    <TTSMenu :isReading @pause="stop()" @play="start()" />
     <router-view v-slot="{ Component, route }">
       <component :is="Component" :key="route.path" class="sticky top-0 bg-base-100"
-        :class="{ 'min-h-screen': outsideHome }" />
+      :class="{ 'min-h-screen': outsideHome }" />
     </router-view>
     <book-vue :class="{ 'overflow-hidden': outsideHome }" @click.right.prevent="showContextMenu($event)" />
+    <TTSMenu :isReading @pause="stop()" @play="start()" />
     <ReaderContextMenu v-model:location="desiredLocation" @select="onSelect" />
   </div>
   <div class="btm-nav md:hidden">

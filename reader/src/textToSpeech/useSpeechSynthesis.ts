@@ -1,6 +1,6 @@
 import { TranscriptElement } from "@jcsj/transcript";
 import { useLocalStorage } from "@vueuse/core";
-import { ref, Ref, shallowRef } from "vue";
+import { computed, ref, Ref, shallowRef } from "vue";
 import { scrollIfUnseen } from "../lib/"
 
 /**
@@ -22,6 +22,35 @@ function revert(elem: InstanceType<typeof TranscriptElement>) {
   return old
 }
 
+export function useSpeechRate(key:string="speechRate") {
+  const speechRate = useLocalStorage(key, 1)
+  const max = 2
+  const min = 0.5
+  const speechRateLabel = computed(() => {
+    return speechRate.value.toFixed(2)
+  })
+  const increment = (step: number) => {
+    if (speechRate.value >= max) {
+      return
+    }
+    speechRate.value += step
+  }
+
+  const decrement = (step: number) => {
+    if (speechRate.value <= min) {
+      return
+    }
+    speechRate.value -= step
+  }
+  return { 
+    speechRate,
+    increment,
+    decrement,
+    max,
+    min,
+    speechRateLabel,
+  }
+}
 /**
  * TODO: accept event handlers to implement features like bookmarking
  */
@@ -33,7 +62,7 @@ export function useSpeechSynthesis({ key, treeWalker, voice }: {
   voice: { value?: SpeechSynthesisVoice },
 }) {
   const transcriptElem = shallowRef<InstanceType<typeof TranscriptElement>>()
-  const speechRate = useLocalStorage(key.speechRate, 1);
+  const {speechRate} = useSpeechRate(key.speechRate)
   const isReading = ref(false)
   function onTranscriptEnd() {
     if (isReading.value) {
