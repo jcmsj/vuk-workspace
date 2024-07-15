@@ -24,6 +24,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useCeTextContent } from './useCeSlot';
+import { type Split } from '.';
 
 withDefaults(defineProps<{
   highlightedIndex:number
@@ -34,11 +35,7 @@ withDefaults(defineProps<{
 const wordBreaks = /(?!['’-])(\W+|\\n|\\r)/;
 
 const text = useCeTextContent()
-interface Split {
-  text:string;
-  isWord:boolean;
-  index:number;
-}
+
 
 // TODO: somehow expose splits
 const splits = computed<Split[]>(() => {
