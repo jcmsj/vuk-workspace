@@ -1,4 +1,4 @@
-import { TranscriptElement } from "@jcsj/transcript";
+import { type Split, TranscriptElement } from "@jcsj/transcript";
 import { useLocalStorage } from "@vueuse/core";
 import { computed, ref, Ref, shallowRef } from "vue";
 import { scrollIfUnseen } from "../lib/"
@@ -144,15 +144,30 @@ export function useSpeechSynthesis({ key, treeWalker, voice, onRead }: {
 
   function readAloud(n: ChildNode) {
     // Use the first node child
+    let text = n.textContent;
     if (n instanceof TranscriptElement) {
       // skip transformation
+      const start = n.highlightedIndex + 1 // Plus 1 to skip the current word
+      const splits:Split[] = (n  as any)._instance.setupState.splits
+      console.log(splits)
+      // join from highlightedIndex to the end based on split.index
+      text = splits.reduce((acc, split) => {
+        // check index == highlightedIndex
+        if (acc.found || split.index == start) {
+          acc.found = true
+          acc.acc += split.text         
+        } 
+
+        return acc
+      }, {acc:"", found:false}).acc
+      console.log(n.highlightedIndex,text,)
     } else {
       transcriptElem.value = transform(n, -1)
     }
     // todo: skip to highlightedIndex by indexing the splits, 
     // see TODO in Transcript.ce.vue
     isReading.value = true
-    speak(n.textContent ?? "")
+    speak(text ?? "")
     follow()
     onRead?.(n)
   }
