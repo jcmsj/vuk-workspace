@@ -50,8 +50,6 @@
       :class="{ 'min-h-screen': outsideHome }" />
     </router-view>
     <book-vue :class="{ 'overflow-hidden': outsideHome }" @click.right.prevent="showContextMenu($event)" />
-    <div class="flex-1 hidden lg:block"></div>
-    <!-- occupy remaining space to assure tts-menu is at the bottom -->
     <TTSMenu v-show="!outsideHome" :isReading @pause="stop()" @play="start()" />
     <ReaderContextMenu v-model:location="desiredLocation" @select="onSelect" />
   </div>
