@@ -1,6 +1,6 @@
 <template>
   <!-- play/pause button -->
-  <div class="w-full flex justify-center absolute bottom-[8vh] lg:sticky lg:bottom-[4vh]">
+  <div class="w-full flex justify-center absolute bottom-[8vh] lg:sticky lg:bottom-[6vh]">
     <div class="join bg-base-200">
       <!-- previous -->
       <button class="join-item">
