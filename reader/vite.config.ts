@@ -5,12 +5,12 @@ import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import Components from 'unplugin-vue-components/vite'
 import basicSsl from '@vitejs/plugin-basic-ssl'
+import { qrcode } from 'vite-plugin-qrcode';
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
     https: true,
   },
-  
   plugins: [
     vue({
       script: {
@@ -41,6 +41,7 @@ export default defineConfig({
       // domains: ['*.custom.com'],
       /** custom certification directory */
       certDir: '/Users/.../.devServer/cert'
-    })
+    }),
+    qrcode() // only applies in dev mode
   ],
 })
