@@ -4,7 +4,7 @@
     </router-link>
 </template>
 <script setup lang="ts">
-import {computed, defineProps} from 'vue'
+import { computed } from 'vue'
 import { anchorClicked } from "./anchorClicked";
 
 defineOptions({
@@ -12,8 +12,8 @@ defineOptions({
 })
 
 const props = defineProps<{
-    id:string,
-    title:string
+    id: string,
+    title: string
 }>()
 const epubId = computed(() => `/#${props.id}`)
 
