@@ -31,6 +31,7 @@ export function useSpeechRate(key: string = "speechRate") {
   })
   const increment = (step: number) => {
     if (speechRate.value >= max) {
+      speechRate.value = max
       return
     }
     speechRate.value += step
@@ -38,6 +39,7 @@ export function useSpeechRate(key: string = "speechRate") {
 
   const decrement = (step: number) => {
     if (speechRate.value <= min) {
+      speechRate.value = min
       return
     }
     speechRate.value -= step

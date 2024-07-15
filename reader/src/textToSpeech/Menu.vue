@@ -1,44 +1,44 @@
 <template>
   <!-- play/pause button -->
-  <div class="w-full flex justify-center sticky bottom-28 md:bottom-12 xl:bottom-12">
-    <div class="join bg-base-200 gap-x-2">
-      <!-- voice rate -->
-      <button class="join-item">
-        <mdi-speedometer class="tts-icon" onclick="speechRateDialog.showModal()" />
-      </button>
+  <div class="w-full flex justify-center absolute bottom-[8vh] lg:sticky lg:bottom-[4vh]">
+    <div class="join bg-base-200">
       <!-- previous -->
       <button class="join-item">
-        <mdi-skip-previous class="tts-icon" />
+        <mdi-skip-previous />
       </button>
       <button class="join-item">
-        <mdi-pause class="tts-icon" v-if="isReading" @click="$emit('pause')" />
-        <mdi-play v-else @click="$emit('play')" class="tts-icon" />
+        <mdi-pause v-if="isReading" @click="$emit('pause')" />
+        <mdi-play v-else @click="$emit('play')" />
       </button>
       <!-- next -->
       <button class="join-item">
-        <mdi-skip-next class="tts-icon" />
+        <mdi-skip-next />
       </button>
       <!-- voice menu -->
-      <button class="join-item">
-        <mdi-dots-vertical class="tts-icon" />
+      <button class="join-item" onclick="speechRateDialog.showModal()">
+        <mdi-dots-vertical />
       </button>
     </div>
     <!-- dialog -->
     <dialog id="speechRateDialog" class="modal">
       <div class="modal-box">
         <h3 class="text-lg font-bold">
-          <mdi-speedometer class="tts-icon inline" />
-          Set speech rate
+          <mdi-cog class="inline !w-10 !h-10" />
+          Text-to-Speech Settings
         </h3>
-        <div class="flex join justify-center">
+        <h4 class="text-md font-bold">
+          <mdi-speedometer class="inline !w-8 !h-8" />
+          Set speech rate
+        </h4>
+        <div class="flex join justify-center items-center gap-x-2">
           <!-- minus -->
-          <button class="join-item" @click="decrement(step)">
-            <mdi-minus class="tts-icon" />
+          <button class="btn btn-circle btn-ghost" @click="decrement(step)">
+            <mdi-minus />
           </button>
-          <NumberSpinner :min :max :step :precision="2" v-model:value="speechRate" />
+          <NumberSpinner :min :max :step :precision="2" v-model:value="speechRate" valueClass="text-4xl" class="text-3xl" />
           <!-- plus -->
-          <button class="join-item" @click="increment(step)">
-            <mdi-plus class="tts-icon" />
+          <button class="btn btn-circle btn-ghost" @click="increment(step)">
+            <mdi-plus />
           </button>
         </div>
         <!-- <SpeechRateController /> -->
@@ -65,7 +65,11 @@ const { speechRate, decrement, increment, max, min } = useSpeechRate()
 
 </script>
 <style scoped>
-.tts-icon {
-  @apply h-8 w-8;
+.mdi {
+  @apply h-full w-full;
+}
+
+.join-item {
+  @apply btn btn-ghost;
 }
 </style>

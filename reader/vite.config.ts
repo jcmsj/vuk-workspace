@@ -33,6 +33,7 @@ export default defineConfig({
     Icons({ 
       /* options */ 
       compiler: 'vue3',
+      defaultClass: 'mdi',
     }),
     basicSsl({
       /** name of certification */
