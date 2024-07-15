@@ -1,10 +1,8 @@
 <template>
     <div>
-        <Suspense v-if=book>
-            <Bookmark v-bind="book">
+        <Bookmark v-if=book v-bind="book">
 
-            </Bookmark>
-        </Suspense>
+        </Bookmark>
     </div>
 </template>
 <script setup lang="ts">
