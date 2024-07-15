@@ -148,7 +148,7 @@ export function useSpeechSynthesis({ key, treeWalker, voice, onRead }: {
     if (n instanceof TranscriptElement) {
       // skip transformation
       const start = n.highlightedIndex + 1 // Plus 1 to skip the current word
-      const splits:Split[] = (n  as any)._instance.setupState.splits
+      const splits:Split[] = (n  as any)._instance.provides.splits._value
       // join from highlightedIndex to the end based on split.index
       text = splits.reduce((acc, split) => {
         // check index == highlightedIndex

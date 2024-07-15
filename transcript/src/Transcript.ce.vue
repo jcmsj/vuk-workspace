@@ -22,7 +22,7 @@
   </span>
 </template>
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, provide } from 'vue';
 import { useCeTextContent } from './useCeSlot';
 import { type Split } from '.';
 
@@ -57,7 +57,8 @@ const splits = computed<Split[]>(() => {
       };
   }) ?? [];
 });
-
+// Hack so splits can be accessed during runtime, especially in the build version
+provide("splits",splits)
 </script>
 
 <style scoped>
