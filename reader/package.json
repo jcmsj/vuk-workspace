@@ -22,22 +22,22 @@
     "dexie": "^4.0.8",
     "rxjs": "^7.8.1",
     "tailwindcss": "^3.4.4",
-    "vue": "^3.4.31",
+    "vue": "catalog:",
     "vue-router": "^4.4.0"
   },
   "devDependencies": {
     "@iconify-json/mdi": "^1.1.67",
-    "@types/wicg-file-system-access": "^2023.10.5",
+    "@types/wicg-file-system-access": "catalog:",
     "@vitejs/plugin-basic-ssl": "^1.1.0",
-    "@vitejs/plugin-vue": "^5.0.5",
+    "@vitejs/plugin-vue": "catalog:",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.39",
-    "typescript": "^5.5.3",
+    "typescript": "catalog:",
     "unplugin-icons": "^0.19.0",
     "unplugin-vue-components": "^0.27.2",
-    "vite": "^5.3.3",
-    "vite-plugin-qrcode": "^0.2.3",
-    "vue-tsc": "^2.0.26",
+    "vite": "catalog:",
+    "vite-plugin-qrcode": "catalog:",
+    "vue-tsc": "catalog:",
     "wrangler": "^3.64.0"
   }
 }

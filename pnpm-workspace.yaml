@@ -3,3 +3,11 @@ packages:
   - fs
   - epub
   - transcript
+catalog:
+  vite: ^5.3.3
+  vue: ^3.4.31
+  "@vitejs/plugin-vue": ^5.0.5
+  typescript: ^5.5.3
+  vue-tsc: ^2.0.26
+  "@types/wicg-file-system-access": ^2023.10.5
+  vite-plugin-qrcode: ^0.2.3

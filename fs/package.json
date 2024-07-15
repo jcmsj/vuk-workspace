@@ -18,7 +18,7 @@
 	},
 	"devDependencies": {
 		"@types/node": "^20.13.0",
-		"@types/wicg-file-system-access": "^2023.10.5",
-		"typescript": "^5.4.5"
+		"@types/wicg-file-system-access": "catalog:",
+		"typescript": "catalog:"
 	}
 }
