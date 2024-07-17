@@ -3,8 +3,10 @@ import { computed, ref } from "vue";
 
 export function useVoice() {
   const voices = ref<SpeechSynthesisVoice[]>([]);
-  speechSynthesis.onvoiceschanged = () => {
-    voices.value = speechSynthesis.getVoices()
+  if (window.speechSynthesis) {
+    window.speechSynthesis.onvoiceschanged = () => {
+      voices.value = speechSynthesis.getVoices()
+    }
   }
   const preferredVoice = useLocalStorage("voice", () => {
     // The default in Google's TTS has the country included
