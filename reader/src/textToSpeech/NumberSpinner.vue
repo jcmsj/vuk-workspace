@@ -17,7 +17,7 @@
 </template>
 <script setup lang="ts">
 // import { useEventListener } from '@vueuse/core';
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 
 const model = defineModel<number>('value', { required: true });
 const props = defineProps<{

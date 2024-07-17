@@ -85,7 +85,7 @@ export async function addTTsBookmark(n:Element) {
     // delete tts bookmark for this book
     if (!book.value) throw new Error("No book found")
     const bookmark = fromElement(n)
-    await db.tts .put({
+    await db.tts.put({
         ...bookmark,
         id: book.value.id,
         bookId: book.value.id,

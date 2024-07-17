@@ -2,7 +2,7 @@
     <!-- create a menu -->
     <!-- toggle for devmode -->
     <div class="w-full flex flex-col self-center">
-        <div class="divider divider-primary text-lg w-full">Settings</div>
+        <div class="subsection">Settings</div>
         <!-- theme -->
          <!-- @vue-ignore -->
         <select  class="select self-center w-full max-w-52" :value="theme" @change="v => setTheme(v.currentTarget.value)">
@@ -17,8 +17,31 @@
                 </label>
             </div>
         </div>
+        <!-- Book Cache -->
+        <div class="subsection">Book Cache</div>
+        <div class="self-center">
+             <div class="form-control w-52">
+                <!-- TODO: warnings, for now limit to 10 -->
+                <label class="label cursor-pointer">
+                    <span class="label-text">Cache Size</span>
+                    <input type="number" name="bookCache" v-model="cacheSize" class="w-12 text-end" :min="0" :max="10">
+                </label>
+                <!-- in use -->
+                <label class="label cursor-pointer">
+                    <span class="text-lg">In Use</span>
+                    {{cache?.count}}/{{settings?.cacheSize}}
+                </label>
+                <!-- delete cache -->
+                <!-- <label class="label cursor-pointer justify-center"> -->
+                    <button @click="db.cache.clear()" class="btn btn-error btn-sm">
+                        <mdi-trash-can class="w-6 h-6" />
+                        Delete Cache
+                    </button>
+                <!-- </label> -->
+            </div>
+        </div>
         <!-- version -->
-        <div class="divider divider-primary text-lg w-full">Version</div>
+        <div class="subsection">Version</div>
         <!-- app -->
         <div class="text-center">
             <span class="text-lg">{{packageJson.name}}</span>
@@ -46,6 +69,9 @@ import { db } from '../db/dexie';
 import { SETTINGS_ID } from "../settings";
 import { settings,theme } from '../settings';
 import packageJson from '../../package.json';
+import { from, useObservable } from '@vueuse/rxjs';
+import { liveQuery } from 'dexie';
+import { computed } from 'vue';
 // get settings
 
 function updateDevMode() {
@@ -55,4 +81,29 @@ function updateDevMode() {
 async function setTheme(theme: string) {
     await db.settings.update(SETTINGS_ID, { theme })
 }
+
+const cache =useObservable(from(liveQuery(async() => {
+    const count = await db.cache.count()
+    return {count}
+})))
+const cacheSize = computed({
+    get: () => settings?.value?.cacheSize ?? 3,
+    set: async(n:number|string) => {
+        if (typeof n === "string") {
+            n = parseInt(n)
+        }
+
+        // if NaN
+        if (Number.isNaN(n)) {
+            throw Error("Invalid number")
+        }
+        await db.settings.update(SETTINGS_ID, { cacheSize: n })
+    }
+})
+
 </script>
+<style scoped>
+.subsection {
+    @apply divider divider-primary text-lg w-full;
+}
+</style>

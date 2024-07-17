@@ -27,6 +27,7 @@ declare module 'vue' {
     MdiSkipNext: typeof import('~icons/mdi/skip-next')['default']
     MdiSkipPrevious: typeof import('~icons/mdi/skip-previous')['default']
     MdiSpeedometer: typeof import('~icons/mdi/speedometer')['default']
+    MdiTrashCan: typeof import('~icons/mdi/trash-can')['default']
     MdiUpload: typeof import('~icons/mdi/upload')['default']
     NavLink: typeof import('./src/components/NavLink.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

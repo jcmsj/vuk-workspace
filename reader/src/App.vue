@@ -2,9 +2,13 @@
     <router-view />
 </template>
 <script setup lang="ts">
-import { watchTheme } from './settings';
+import { onMounted } from 'vue';
+import { loadBookFromCache, watchTheme } from './settings';
 
 watchTheme()
+onMounted(() => {
+  loadBookFromCache()
+})
 </script>
 <style>
 body {

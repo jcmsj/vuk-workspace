@@ -22,7 +22,7 @@ import { BOOKMARK_CLASS, Bookmark, removeBookmark } from '.';
 
 const props = defineProps<Book>()
 const bookmarks  = useObservable<BookmarkRow[]>(
-    from(liveQuery(async() => {
+    from(liveQuery(async() => {   
         return await db.bookmarks
             .where("bookId").equals(props.id)
             // https://dexie.org/docs/Collection/Collection.sortBy()
