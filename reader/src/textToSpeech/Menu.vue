@@ -41,6 +41,12 @@
             <mdi-plus />
           </button>
         </div>
+        <!-- Timer -->
+        <h4 class="text-md font-bold">
+        <mdi-timer class="inline !w-8 !h-8" />
+        Set timer
+        </h4>
+        <SleepTimer />
         <!-- <SpeechRateController /> -->
         <div class="modal-action">
           <form method="dialog">
@@ -56,6 +62,7 @@
 import { useSpeechRate } from './useSpeechSynthesis';
 import { useLocalStorage } from '@vueuse/core';
 import NumberSpinner from './NumberSpinner.vue';
+import SleepTimer from './SleepTimer.vue';
 defineProps<{
   isReading: boolean
 }>()
