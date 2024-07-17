@@ -27,6 +27,16 @@ async function scrollToLatestBookmark() {
         .where("bookId")
         .equals(book.value.id)
         .sortBy("percentage")
+
+    // check tts too
+    const tts = await db.tts
+        .where("bookId")
+        .equals(book.value.id)
+        .sortBy("percentage")
+
+    bookmarks.push(...tts)
+    bookmarks.sort((a, b) => a.percentage - b.percentage)
+
     console.log("bookmarks", bookmarks)
     if (bookmarks.length == 0) {
         return
@@ -36,11 +46,12 @@ async function scrollToLatestBookmark() {
 
     const elem = root.value?.shadowRoot.querySelector(latest.selector)
     if (elem) {
+        // next frame
         elem.classList.add(BOOKMARK_CLASS)
         // Note: block:center is not working
         elem.scrollIntoView({
             behavior: "smooth",
-            block: "start",
+            block: "end",
         })
         // ALTERNATIVE:
         // scroll to percentage, calculate the correct position
