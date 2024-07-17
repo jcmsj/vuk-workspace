@@ -28,6 +28,7 @@ function calcScrollPercentage(composedPath: EventTarget[]): number {
         return percentageCandidate;
     }, 0)
 }
+
 export const trimLength = ref<number>(64)
 
 
@@ -70,10 +71,29 @@ export async function removeBookmark(b:BookmarkRow) {
     await db.bookmarks.delete(b.id)
 }
 
+function calcScrollPercentageByAscendingDOMTree(elem: Element): number {
+    let currentElem: Element | null = elem;
+    while (currentElem) {
+        // Attempt to calculate the scroll percentage at this level
+        const percentage = getScrollPercentage(currentElem);
+        if (percentage > 0) {
+            return percentage;
+        }
+        // If the current element is inside a shadow DOM
+        if (currentElem.parentNode instanceof ShadowRoot) {
+            // Use the host as the next element to check
+            currentElem = currentElem.parentNode.host;
+        } else {
+            // Otherwise, move to the parent element
+            currentElem = currentElem.parentElement;
+        }
+    }
+    return 0;
+}
+
 export function fromElement(elem: Element): Bookmark {
     const selector = generateSelector(elem);
-    // TODO: Fix percentage calculation
-    const percentage = getScrollPercentage(elem);
+    const percentage = calcScrollPercentageByAscendingDOMTree(elem)
     const text = elem.textContent?.substring(0,trimLength.value) || "";
     return {
         percentage,
