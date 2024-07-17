@@ -4,7 +4,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import { Enhanced, LoadedChapter } from './EnhancedEpub';
+import { Enhanced, EnhancedEpub, LoadedChapter } from './EnhancedEpub';
 import { asyncComputed } from '@vueuse/core';
 import EpubStyle from "./EpubStyle.vue"
 import { ProgressEvents } from "@jcsj/epub/lib/Parts";
@@ -130,6 +130,11 @@ const noLogs: ProgressEvents = {
 const props = defineProps<{
     file: File
 }>()
+
+const emit = defineEmits<{
+    epubLoaded: [epub:EnhancedEpub]
+    epubRendered: [epub:EnhancedEpub]
+}>()
 const epub = asyncComputed(() => Enhanced({
     blob: props.file,
     events: settings.value?.devMode ? withLogs : noLogs
@@ -140,6 +145,10 @@ const pages = reactive<{pages:LoadedChapter[]}>({
 }) 
 watch(epub, async(epub) => {
     pages.pages = (await epub.loadAll()) ?? []
+    emit("epubLoaded", epub)
+})
+watch(pages, ()=> {
+    emit("epubRendered", epub.value)
 })
 
 </script>

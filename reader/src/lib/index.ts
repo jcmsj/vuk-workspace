@@ -8,7 +8,7 @@ export function getSelectionText(): string {
 /**
  * https://stackoverflow.com/questions/123999/how-can-i-tell-if-a-dom-element-is-visible-in-the-current-viewport
  */
-export function isElementInViewport(el: HTMLElement): boolean {
+export function isElementInViewport(el: Element): boolean {
     const rect = el.getBoundingClientRect();
     return rect.top >= 0 &&
         rect.left >= 0 &&
@@ -21,7 +21,7 @@ export function refocus(el: Element) {
     return el;
 }
 
-export function scrollIfUnseen(l:HTMLElement|null) {
+export function scrollIfUnseen(l:Element|null) {
     if (l && !isElementInViewport(l))
         refocus(l);
 }
