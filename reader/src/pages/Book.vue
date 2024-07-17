@@ -11,7 +11,7 @@ import { book, BOOKMARK_CLASS } from "../bookmarks";
 import { db } from "../db/dexie";
 import { file } from "../renderer/file";
 import { RendererElement } from "../renderer/r";
-import { root } from "../renderer/root";
+import { root, rootTreeWalker } from "../renderer/root";
 import { vShadowClick } from "../renderer/shadowRootEvents";
 const emit = defineEmits<{
     click: [e: MouseEvent]
@@ -58,6 +58,11 @@ async function scrollToLatestBookmark() {
         // workaround since scrollIntoView is not working
         // const px = latest.percentage/100 * root.value?.shadowRoot.host.scrollHeight!
         // root.value?.shadowRoot.host.scrollTo(0, px)
+
+        // set current node for tts
+        if (rootTreeWalker.value) {
+            rootTreeWalker.value.currentNode = elem
+        }
     } else {
         console.error("Bookmark not found", latest)
     }
