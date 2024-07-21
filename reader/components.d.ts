@@ -12,6 +12,7 @@ declare module 'vue' {
     'Mdi:contentCopy': typeof import('~icons/mdi/content-copy')['default']
     'Mdi:trashCan': typeof import('~icons/mdi/trash-can')['default']
     'Mdi:volume': typeof import('~icons/mdi/volume')['default']
+    MdiAlertCircle: typeof import('~icons/mdi/alert-circle')['default']
     MdiBook: typeof import('~icons/mdi/book')['default']
     MdiBookmark: typeof import('~icons/mdi/bookmark')['default']
     MdiCaret: typeof import('~icons/mdi/caret')['default']

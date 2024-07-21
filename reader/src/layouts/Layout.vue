@@ -3,7 +3,7 @@
     <li>
       <upload-btn upload-span-class="sidebar-label" />
     </li>
-    <li>
+    <li v-if="isSupported">
       <nav-link to="/files" spanClass="sidebar-label">
         <template #icon>
           <mdi-folder class="sidebar-icon" />
@@ -55,7 +55,7 @@
   </div>
   <div class="btm-nav md:hidden">
     <upload-btn />
-    <nav-link to="/files">
+    <nav-link to="/files"  v-if="isSupported">
       <template #icon>
         <mdi-folder class="botbarIcon" />
       </template>
@@ -100,6 +100,7 @@ import { useSpeechSynthesis } from '../textToSpeech/useSpeechSynthesis';
 import { useVoice } from '../textToSpeech/useVoice';
 import { rootTreeWalker } from '../renderer/root';
 import TTSMenu from '../textToSpeech/Menu.vue';
+import { isSupported } from '@vuk/fs/lib/web';
 const { desiredLocation, show: showContextMenu, mouseEvent } = useContextMenu()
 const route = useRoute()
 const outsideHome = computed(() => route.name != 'root');

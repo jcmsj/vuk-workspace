@@ -1,18 +1,35 @@
 <template>
 <div class="root items-center w-full md:justify-items-center p-2 [&_*]:text-2xl ">
-    <div class="bg-base-100 sticky top-2 flex justify-center z-10">
-        <div class="join">
-            <LibraryBtn class="join-item" @click="setLibrary" />
-            <RestoreBtn  class="join-item" @click="restoreLibrary" />
+    <template v-if="isSupported">
+        <div class="bg-base-100 sticky top-2 flex justify-center z-10">
+            <div class="join">
+                <LibraryBtn class="join-item" @click="setLibrary" />
+                <RestoreBtn  class="join-item" @click="restoreLibrary" />
+            </div>
         </div>
-    </div>
-    <VListing
+        <VListing
         v-if="library"
         :fs="library" 
         :sorter="librarian" 
         @open-book="openBook"
         >
     </VListing>
+    </template>
+    <div v-else>
+        <div class="form-control text-center">
+            <h2 class="text-2xl">
+                <!-- icon -->
+                 <mdi-alert-circle class="w-8 h-8 inline-block" />
+                Setting a library is not supported
+            </h2>
+            <!-- https://developer.mozilla.org/en-US/docs/Web/API/Window/showOpenFilePicker#browser_compatibility -->
+             <!-- learnmore -->
+            <a class="link" href="https://developer.mozilla.org/en-US/docs/Web/API/Window/showOpenFilePicker#browser_compatibility" target="_blank" rel="noopener noreferrer">
+                Learn more
+            </a>
+
+        </div>
+    </div>
 </div>
 </template>
 <script setup lang=ts>
@@ -24,7 +41,7 @@ import { aDirHandle } from "../library/util"
 import VListing from "../fs/Listing.vue"
 import LibraryBtn from "../library/LibraryBtn.vue"
 import RestoreBtn from "../library/RestoreBtn.vue"
-import { FileSystemDirectoryHandleToDir, getLastWorkingDir,  } from "@vuk/fs/lib/web"
+import { FileSystemDirectoryHandleToDir, getLastWorkingDir, isSupported,  } from "@vuk/fs/lib/web"
 import { Item, Status } from "@vuk/fs"
 import { library, librarian, createFs } from "../library"
 import { file } from "../renderer/file"

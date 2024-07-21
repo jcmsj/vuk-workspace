@@ -68,3 +68,4 @@ export function init(provider:Provider<Dirent, Buffer>, library:{value:FS} ) {
     }
 }
 
+export const isSupported = true;

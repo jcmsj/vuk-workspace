@@ -87,7 +87,7 @@ const cache =useObservable(from(liveQuery(async() => {
     return {count}
 })))
 const cacheSize = computed({
-    get: () => settings?.value?.cacheSize ?? 3,
+    get: () => settings?.value?.cacheSize!,
     set: async(n:number|string) => {
         if (typeof n === "string") {
             n = parseInt(n)

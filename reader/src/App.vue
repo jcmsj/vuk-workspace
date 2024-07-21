@@ -3,11 +3,12 @@
 </template>
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { loadBookFromCache, watchTheme } from './settings';
+import { loadBookFromCache, watchTheme,initSettingsIfNotExist } from './settings';
 
 watchTheme()
-onMounted(() => {
-  loadBookFromCache()
+onMounted(async() => {
+  await initSettingsIfNotExist()
+  await loadBookFromCache()
 })
 </script>
 <style>

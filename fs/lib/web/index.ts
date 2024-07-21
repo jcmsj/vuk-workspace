@@ -86,3 +86,5 @@ export function asDir(dir: FileSystemDirectoryHandle): Dir {
 export async function FileSystemDirectoryHandleToDir(raw: FileSystemDirectoryHandle): Promise<Dir | undefined> {
     return await verifyPermission(raw) ? asDir(raw) : undefined;
 }
+
+export const isSupported = window.showOpenFilePicker !== undefined;
