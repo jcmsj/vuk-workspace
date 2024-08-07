@@ -41,7 +41,11 @@ export async function Enhanced(a: Parameters<typeof MemoizedEpubAndSanitized>["0
     a.fallbackImage = ""
     // Try to load stuff from entries
     a.missingMediaHandler = async (it) => {
-        const l = await old.parser.reader.read(it.src.replace("../", ""), "image/*");
+        const src = it.src.replace("../", "");
+        const l = await old.parser.reader.read(src, "image/*")
+            .catch(async e => {
+                return old.parser.reader.read(src.toLowerCase(), "image/*")
+            });
         if (l && l.data instanceof Blob) {
             // log("Found: ", it.src)
             const d = URL.createObjectURL(l.data as Blob)

@@ -37,7 +37,7 @@ export default defineConfig({
       defaultClass: 'mdi',
     }),
     VitePWA({ 
-      registerType: 'prompt',
+      registerType: 'autoUpdate',
       manifest: {
         name: 'Vuk',
         short_name: 'Vuk',

@@ -24,8 +24,13 @@ export async function matchMediaSources<D extends DataReader>(d: D, m: Manifest,
             );
             continue
         }
-
-        img.setAttribute(key, (await handler?.({ img, src, key })) ?? fallback)
+        if (!handler) {
+            continue
+        }
+        const data = await handler({ img, src, key });
+        if (data) {
+            img.setAttribute(key, data);
+        }
     }
 }
 
