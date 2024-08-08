@@ -53,6 +53,7 @@ export function useSpeechRate(key: string = "speechRate") {
     speechRateLabel,
   }
 }
+let forceStopFlag = false
 /**
  * TODO: accept event handlers to implement features like bookmarking
  */
@@ -68,13 +69,14 @@ export function useSpeechSynthesis({ key, treeWalker, voice, onRead }: {
   const { speechRate } = useSpeechRate(key.speechRate)
   const isReading = ref(false)
   function onTranscriptEnd() {
-    if (isReading.value) {
+    if (forceStopFlag) {
+      console.log('TTS: Force stopped')
+      isReading.value = false
+    }
+    if (isReading.value == true) {
       next()
-      return
     }
 
-    // TODO: save progress
-    console.log('TTS: Transcript ended')
   }
   function speak(txt: string) {
     const utt = new SpeechSynthesisUtterance(txt)
@@ -86,8 +88,10 @@ export function useSpeechSynthesis({ key, treeWalker, voice, onRead }: {
   }
 
   function stop() {
-    speechSynthesis.cancel()
+    console.log('TTS: Stopping')
+    forceStopFlag = true
     isReading.value = false
+    speechSynthesis.cancel()
   }
 
   function onBoundary(e: SpeechSynthesisEvent) {
@@ -148,6 +152,10 @@ export function useSpeechSynthesis({ key, treeWalker, voice, onRead }: {
     if (n instanceof TranscriptElement) {
       // skip transformation
       const start = n.highlightedIndex + 1 // Plus 1 to skip the current word
+      // if ((n as any)._instance == undefined) {
+      //   onTranscriptEnd()
+      //   return
+      // }
       const splits:Split[] = (n  as any)._instance.provides.splits._value
       // join from highlightedIndex to the end based on split.index
       text = splits.reduce((acc, split) => {
@@ -175,6 +183,7 @@ export function useSpeechSynthesis({ key, treeWalker, voice, onRead }: {
       console.log('TTS: No currentNode')
       return
     }
+    forceStopFlag = false
     if (transcriptElem.value) {
       readAloud(transcriptElem.value)
     } else {
