@@ -3,6 +3,7 @@ import { Manifest } from "../traits";
 
 export type MissingMediaHandler = (data: { img: HTMLImageElement | SVGImageElement, src: string, key: string }) => Promise<string|undefined>
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function matchMediaSources<D extends DataReader>(d: D, m: Manifest, frag: DocumentFragment, fallback = "", handler?: MissingMediaHandler
 ) {
     const manifest = Object.values(m);

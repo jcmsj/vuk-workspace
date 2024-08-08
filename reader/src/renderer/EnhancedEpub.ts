@@ -43,7 +43,7 @@ export async function Enhanced(a: Parameters<typeof MemoizedEpubAndSanitized>["0
     a.missingMediaHandler = async (it) => {
         const src = it.src.replace("../", "");
         const l = await old.parser.reader.read(src, "image/*")
-            .catch(async e => {
+            .catch(async _ => {
                 return old.parser.reader.read(src.toLowerCase(), "image/*")
             });
         if (l && l.data instanceof Blob) {
