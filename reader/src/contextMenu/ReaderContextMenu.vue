@@ -14,7 +14,7 @@
         </span>
     </li>
     <!-- copy -->
-    <li @click="$emit('select', 'read-aloud')">
+    <li @click="$emit('select', 'copy')">
         <span>
             <mdi:content-copy class="h-6 w-6"></mdi:content-copy>
             Copy

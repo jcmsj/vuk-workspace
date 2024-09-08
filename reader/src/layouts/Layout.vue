@@ -127,7 +127,13 @@ function onSelect(option: 'read-aloud' | 'bookmark' | 'copy') {
   } else if (option == 'read-aloud') {
     setTranscriptFromEvent(mouseEvent.value)
   } else {
-    
+    // get selected text
+    const selection = window.getSelection()
+    if (selection) {
+      const text = selection.toString()
+      console.log('Copied', text)
+      navigator.clipboard.writeText(text)
+    }
     // TODO
   }
 }
