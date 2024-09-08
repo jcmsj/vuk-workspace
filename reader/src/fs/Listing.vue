@@ -9,16 +9,18 @@
     <VItem v-if="!fs.inRoot" @click="fs.moveUp()">
         ../
     </VItem>
-    <VItem v-for="(item, dirname) of sorter.dirs" :key="dirname" @item-click="fs.goto(item)"
-    :class="{hidden:shouldHide(item)}"
-    >
+    <template v-for="(item, dirname) of sorter.dirs" :key="dirname" >
+        <VItem v-if="!shouldHide(item)" @item-click="fs.goto(item)">
         {{ dirname }}
     </VItem>
-    <VItem item_name="book" v-for="(item, name) of sorter.books" :key="name" @item-click="$emit('open-book', item)"
-    :class="{hidden:shouldHide(item)}"
+</template>
+<template v-for="(item, name) of sorter.books" :key="name">
+    <VItem item_name="book"  @item-click="$emit('open-book', item)"
+    v-if="!shouldHide(item)"
     >
-        {{ name }}
-    </VItem>
+    {{ name }}
+</VItem>
+</template>
 </ul>
 </template>
 <script setup lang=ts>

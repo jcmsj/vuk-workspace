@@ -1,6 +1,6 @@
 <template>
     <EpubStyle :epub="epub" v-if="epub" />
-    <div v-for="page in pages.pages" v-html="page.html" :ch="page.id" :id="page.id">
+    <div v-for="page in pages.pages" v-html="page.html" :ch="page.id" :id="page.id" :key="page.id">
     </div>
 </template>
 <script setup lang="ts">

@@ -1,5 +1,5 @@
 <template>
-    <ul class="menu bg-base-200 w-48 rounded-box" :class="hidden" v-on-click-outside="dismiss"
+    <ul class="menu bg-base-200 w-48 rounded-box absolute" :class="hidden" :style v-on-click-outside="dismiss"
         ref="contextMenu" @click="dismiss()">
         <slot></slot>
     </ul>
@@ -14,9 +14,10 @@ const safeLocation = computed(() => location.value && contextMenu.value ? toSafe
 function px(n?: number) {
     return n == undefined ? undefined : `${n}px`
 }
-const left = computed(() => px(safeLocation.value?.x))
-const top = computed(() => px(safeLocation.value?.y))
-
+const style = computed(() => ({
+    left: px(safeLocation.value?.x),
+    top: px(safeLocation.value?.y),
+}))
 const hidden = computed(() => location.value == undefined ? 'hidden' : '')
 function toSafeBounds(mouse: Coord2d, elem: HTMLElement) {
     // Get mouse position
@@ -46,10 +47,3 @@ function dismiss() {
     location.value = undefined
 }
 </script>
-<style scoped>
-.menu {
-    @apply absolute;
-    left: v-bind(left);
-    top: v-bind(top);
-}
-</style>

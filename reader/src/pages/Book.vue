@@ -16,7 +16,6 @@ import { vShadowClick } from "../renderer/shadowRootEvents";
 const emit = defineEmits<{
     click: [e: MouseEvent]
 }>()
-// scroll to latest position
 async function scrollToLatestBookmark() {
     if (!book.value)  {
         console.error("Book not found")
@@ -38,6 +37,12 @@ async function scrollToLatestBookmark() {
     bookmarks.sort((a, b) => a.percentage - b.percentage)
 
     console.log("bookmarks", bookmarks)
+
+    // Auto scroll to top in case new book is loaded when an existing book is already scrolled
+    root.value?.shadowRoot.host.scrollTo({
+        top: 0,
+        behavior: "smooth",
+    })
     if (bookmarks.length == 0) {
         return
     }
