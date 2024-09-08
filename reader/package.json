@@ -1,7 +1,7 @@
 {
   "name": "vuk",
   "private": true,
-  "version": "0.1.7",
+  "version": "0.1.8",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -14,32 +14,32 @@
     "@jcsj/epub": "workspace:*",
     "@jcsj/generate-selector": "^0.0.3",
     "@jcsj/transcript": "workspace:*",
-    "@vueuse/components": "^10.11.0",
-    "@vueuse/core": "^10.11.0",
-    "@vueuse/rxjs": "^10.11.0",
+    "@vueuse/components": "^11.0.3",
+    "@vueuse/core": "^11.0.3",
+    "@vueuse/rxjs": "^11.0.3",
     "@vuk/fs": "workspace:*",
     "daisyui": "^4.12.10",
     "dexie": "^4.0.8",
     "rxjs": "^7.8.1",
-    "tailwindcss": "^3.4.4",
+    "tailwindcss": "^3.4.10",
     "vue": "catalog:",
-    "vue-router": "^4.4.0"
+    "vue-router": "^4.4.3"
   },
   "devDependencies": {
-    "@iconify-json/mdi": "^1.1.67",
+    "@iconify-json/mdi": "^1.2.0",
     "@types/wicg-file-system-access": "catalog:",
-    "@vite-pwa/assets-generator": "^0.2.4",
+    "@vite-pwa/assets-generator": "^0.2.6",
     "@vitejs/plugin-basic-ssl": "^1.1.0",
     "@vitejs/plugin-vue": "catalog:",
-    "autoprefixer": "^10.4.19",
-    "postcss": "^8.4.39",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.45",
     "typescript": "catalog:",
-    "unplugin-icons": "^0.19.0",
-    "unplugin-vue-components": "^0.27.2",
+    "unplugin-icons": "^0.19.3",
+    "unplugin-vue-components": "^0.27.4",
     "vite": "catalog:",
-    "vite-plugin-pwa": "^0.20.0",
+    "vite-plugin-pwa": "^0.20.5",
     "vite-plugin-qrcode": "catalog:",
     "vue-tsc": "catalog:",
-    "wrangler": "^3.64.0"
+    "wrangler": "^3.75.0"
   }
 }

@@ -26,7 +26,6 @@ export async function read(value: Blob): Promise<Reader> {
     await r.init();
     return r;
 }
-
 /**
  * Files are referenced differently in the manifest, in hyperlinks, etc.
  * So I think it's better to strip the OEBPS prefix for all of those.
@@ -94,6 +93,11 @@ export class Reader extends ZipReader<Uint8Array> implements ReaderLike {
     /**
      * @returns the appropriate zip writer
      */
+    /**
+     * 
+     * @param t 
+     * @returns 
+     */
     determineWriter(t?: string) {
         if (t?.includes("image/"))
             return new BlobWriter(t);
@@ -101,4 +105,3 @@ export class Reader extends ZipReader<Uint8Array> implements ReaderLike {
             return new TextWriter("utf-8");
     }
 }
-

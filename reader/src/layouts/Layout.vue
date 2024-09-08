@@ -49,7 +49,7 @@
       <component :is="Component" :key="route.path" class="sticky top-0 bg-base-100"
       :class="{ 'min-h-screen': outsideHome }" />
     </router-view>
-    <book-vue :class="{ 'overflow-hidden': outsideHome }" @click.right.prevent="showContextMenu($event)" />
+    <book-vue :class="{ 'overflow-hidden': outsideHome }" @contextmenu.prevent="showContextMenu($event)" />
     <TTSMenu v-show="!outsideHome" :isReading @pause="stop()" @play="start()" />
     <ReaderContextMenu v-model:location="desiredLocation" @select="onSelect" />
   </div>
@@ -93,7 +93,7 @@ import UploadBtn from '../library/UploadBtn.vue';
 import NavLink from '../components/NavLink.vue';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
-import {addTTsBookmark, onClick as onBookmarkClick} from "../bookmarks"
+import { addTTsBookmark, onClick as onBookmarkClick} from '../bookmarks'
 import { useContextMenu } from '../composables/useContextMenu';
 import ReaderContextMenu from '../contextMenu/ReaderContextMenu.vue';
 import { useSpeechSynthesis } from '../textToSpeech/useSpeechSynthesis';
@@ -105,6 +105,7 @@ const { desiredLocation, show: showContextMenu, mouseEvent } = useContextMenu()
 const route = useRoute()
 const outsideHome = computed(() => route.name != 'root');
 const {voice} = useVoice()
+
 const {setTranscriptFromEvent,isReading,stop,start} = useSpeechSynthesis({
   key: {
     speechRate: 'speechRate',
@@ -112,7 +113,6 @@ const {setTranscriptFromEvent,isReading,stop,start} = useSpeechSynthesis({
   voice,
   treeWalker: rootTreeWalker,
   onRead(n) {
-    // console.log('Reading', n.parentElement?.parentElement) 
       addTTsBookmark(n.parentElement?.parentElement!)
   },
 })
