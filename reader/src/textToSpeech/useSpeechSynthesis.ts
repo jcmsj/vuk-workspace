@@ -53,7 +53,7 @@ export function useSpeechRate(key: string = "speechRate") {
     speechRateLabel,
   }
 }
-let forceStopFlag = false
+let forceStopFlag = ref(false)
 /**
  * TODO: accept event handlers to implement features like bookmarking
  */
@@ -69,7 +69,7 @@ export function useSpeechSynthesis({ key, treeWalker, voice, onRead }: {
   const { speechRate } = useSpeechRate(key.speechRate)
   const isReading = ref(false)
   function onTranscriptEnd() {
-    if (forceStopFlag) {
+    if (forceStopFlag.value) {
       console.log('TTS: Force stopped')
       isReading.value = false
     }
@@ -89,7 +89,7 @@ export function useSpeechSynthesis({ key, treeWalker, voice, onRead }: {
 
   function stop() {
     console.log('TTS: Stopping')
-    forceStopFlag = true
+    forceStopFlag.value = true
     isReading.value = false
     speechSynthesis.cancel()
   }
@@ -179,11 +179,12 @@ export function useSpeechSynthesis({ key, treeWalker, voice, onRead }: {
   }
 
   function start() {
+    forceStopFlag.value = false
+    console.log("TTS: Starting")
     if (treeWalker.value?.currentNode == null) {
       console.log('TTS: No currentNode')
       return
     }
-    forceStopFlag = false
     if (transcriptElem.value) {
       readAloud(transcriptElem.value)
     } else {
