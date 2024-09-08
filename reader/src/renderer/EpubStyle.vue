@@ -1,6 +1,6 @@
 <template>
-    <component is="style" v-for="scoped of scopeds">
-        {{ scoped }}
+    <component is="style" v-for="scope of scopes" :key="scope.id">
+        {{ scope.style }}
     </component>
     <component is="style">
         img {
@@ -41,19 +41,23 @@
 </template>
 <script setup lang=ts>
 import { EnhancedEpub } from './EnhancedEpub';
-import { computedAsync } from '@vueuse/core';
+import { asyncComputed } from '@vueuse/core';
 
 const props = defineProps<{
     epub:EnhancedEpub
 }>()
-const scopeds = computedAsync(async () => loadAllCSS(props.epub));
-
-async function loadAllCSS(epub: EnhancedEpub): Promise<string[]> {
+interface Scope {
+    style: string;
+    id: string;
+}
+const scopes = asyncComputed<Scope[]>(async () => loadAllCSS(props.epub), []);
+async function loadAllCSS(epub: EnhancedEpub): Promise<Scope[]> {
     const styles = epub.matchAll(/style|css/)
     // log(styles)
     return Promise.all(
-        styles.map(s => props.epub?.getContentRaw(s.id ?? ""))
-    );
+        styles.map(async (s) => ({
+            style: await props.epub?.getContentRaw(s.id ?? ""),
+            id: s.id})))
 }
 
 </script>
