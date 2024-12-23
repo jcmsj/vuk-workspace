@@ -1,7 +1,7 @@
 {
   "name": "vuk",
   "private": true,
-  "version": "0.1.82",
+  "version": "0.1.83",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,7 +12,7 @@
   "dependencies": {
     "@jcsj/arraymap": "^0.0.4",
     "@jcsj/epub": "workspace:*",
-    "@jcsj/generate-selector": "^0.0.4",
+    "@jcsj/generate-selector": "^0.0.5",
     "@jcsj/transcript": "workspace:*",
     "@vueuse/components": "^12.2.0",
     "@vueuse/core": "^12.2.0",
