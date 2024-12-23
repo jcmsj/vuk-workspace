@@ -30,7 +30,7 @@ export interface Transformer {
     sort: (dir: Dir) => Promise<Library>;
 }
 
-export interface Librarian extends Transformer, Library {}
+export interface Librarian extends Transformer, Library { }
 
 export enum HandleKind {
     DIR,
@@ -43,23 +43,23 @@ export interface Handle<O = any> {
     isSame(other: Handle): Promise<boolean>;
     readonly name: string;
     readonly kind: HandleKind;
-    readonly origin:O;
+    readonly origin: O;
 }
 
 export interface Item extends Handle {
     get: () => Promise<File>;
-    readonly kind:HandleKind.FILE;
+    readonly kind: HandleKind.FILE;
 }
 
 export interface RootDir extends Dir {
-    readonly isRoot:true;
+    readonly isRoot: true;
 }
 
 export interface Dir extends Handle {
     readonly name: string;
-    readonly kind:HandleKind.DIR;
+    readonly kind: HandleKind.DIR;
     readonly isRoot: boolean;
-    getItem: (name:string) => Promise<Item>;
+    getItem: (name: string) => Promise<Item>;
     entries: () => AsyncIterableIterator<Item | Dir>;
 }
 

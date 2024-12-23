@@ -46,7 +46,7 @@ export async function onClick(composedPath: EventTarget[]) {
     const bookmark: Bookmark = {
         percentage,
         selector,
-        text: target.textContent?.substring(0,trimLength.value) || ""
+        text: target.textContent?.substring(0, trimLength.value) || ""
     }
     const title = useTitle()
     if (!title.value) {
@@ -67,7 +67,7 @@ export const book = ref<Book>()
 
 export const BOOKMARK_CLASS = "vuk-bookmark"
 
-export async function removeBookmark(b:BookmarkRow) {
+export async function removeBookmark(b: BookmarkRow) {
     await db.bookmarks.delete(b.id)
 }
 
@@ -94,14 +94,14 @@ function calcScrollPercentageByAscendingDOMTree(elem: Element): number {
 export function fromElement(elem: Element): Bookmark {
     const selector = generateSelector(elem);
     const percentage = calcScrollPercentageByAscendingDOMTree(elem)
-    const text = elem.textContent?.substring(0,trimLength.value) || "";
+    const text = elem.textContent?.substring(0, trimLength.value) || "";
     return {
         percentage,
         selector,
         text,
     }
 }
-export async function addTTsBookmark(n:Element) {
+export async function addTTsBookmark(n: Element) {
     // delete tts bookmark for this book
     if (!book.value) throw new Error("No book found")
     const bookmark = fromElement(n)
