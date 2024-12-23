@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "fs"
+		},
+		{
+			"path": "generate-selector"
 		}
 	],
 	"settings": {}

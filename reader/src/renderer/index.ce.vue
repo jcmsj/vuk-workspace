@@ -144,11 +144,15 @@ const pages = reactive<{pages:LoadedChapter[]}>({
     pages:[]
 }) 
 watch(epub, async(epub) => {
-    pages.pages = (await epub.loadAll()) ?? []
-    emit("epubLoaded", epub)
+    if (epub) {
+        pages.pages = (await epub.loadAll()) ?? []
+        emit("epubLoaded", epub)
+    }
 })
 watch(pages, ()=> {
-    emit("epubRendered", epub.value)
+    if (epub.value) {
+        emit("epubRendered", epub.value) 
+    }
 })
 
 </script>

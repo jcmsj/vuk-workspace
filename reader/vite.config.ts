@@ -9,9 +9,11 @@ import { qrcode } from 'vite-plugin-qrcode';
 import { VitePWA } from 'vite-plugin-pwa'
 // https://vitejs.dev/config/
 export default defineConfig({
-  server: {
-    https: true,
-  },
+  // server: {
+  //   https: {
+
+  //   },
+  // },
   plugins: [
     vue({
       script: {

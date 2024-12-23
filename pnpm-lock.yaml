@@ -99,8 +99,8 @@ importers:
         specifier: workspace:*
         version: link:../epub
       '@jcsj/generate-selector':
-        specifier: ^0.0.3
-        version: 0.0.3
+        specifier: ^0.0.4
+        version: 0.0.4
       '@jcsj/transcript':
         specifier: workspace:*
         version: link:../transcript
@@ -1210,8 +1210,8 @@ packages:
   '@jcsj/emit@0.1.1':
     resolution: {integrity: sha512-rrQe3nHlsejjuY4YDl6rh8TVZplNaNb6wi5XhwsCLAA9+7gwGTVPrwZ6RhxItzKc6cLesvydzHkxf9EVtXyVqw==}
 
-  '@jcsj/generate-selector@0.0.3':
-    resolution: {integrity: sha512-nEHN6Lcy7YDYQNzfA3EhvIzUSobutlRKxPPns0/89fGYanB+BZf99gM4DIWyZItUKAB8GEOhC7flPPdRfWPPhw==}
+  '@jcsj/generate-selector@0.0.4':
+    resolution: {integrity: sha512-+OUi5VF7rX8v0MrR+oWQ46cWpq83w4ICj48zUUf8dmsGBTNwnkDJnDW6IGM3QDOSWpKZ6imFnHDhHwMoMH6ZlA==}
 
   '@jcsj/sax@2.0.0-beta.1':
     resolution: {integrity: sha512-PCk9/1hCVusdWipsuuXcs6rHCNtUFKxDzzNJW/nOW7jfAs+X3Wb/5sWioKds+1GiZEC3IGTIk6387U/VspdTag==}
@@ -5289,7 +5289,7 @@ snapshots:
 
   '@jcsj/emit@0.1.1': {}
 
-  '@jcsj/generate-selector@0.0.3': {}
+  '@jcsj/generate-selector@0.0.4': {}
 
   '@jcsj/sax@2.0.0-beta.1': {}
 
