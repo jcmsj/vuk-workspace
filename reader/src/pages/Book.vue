@@ -51,21 +51,18 @@ async function scrollToLatestBookmark() {
 
     const elem = root.value?.shadowRoot.querySelector(latest.selector)
     if (elem) {
-        // next frame
         elem.classList.add(BOOKMARK_CLASS)
-        // Note: block:center is not working
-        elem.scrollIntoView({
+        console.log("Bookmark: centering element: ", elem)
+        const elemRect = elem.getBoundingClientRect()
+        const offset = elemRect.top - (window.innerHeight / 2) + (elemRect.height / 2)
+        root.value?.shadowRoot.host.scrollBy({
+            top: offset,
             behavior: "smooth",
-            block: "end",
         })
-        // ALTERNATIVE:
-        // scroll to percentage, calculate the correct position
-        // workaround since scrollIntoView is not working
-        // const px = latest.percentage/100 * root.value?.shadowRoot.host.scrollHeight!
-        // root.value?.shadowRoot.host.scrollTo(0, px)
 
         // set current node for tts
         if (rootTreeWalker.value) {
+            console.log("Bookmark: override tts:", elem)
             rootTreeWalker.value.currentNode = elem
         }
     } else {

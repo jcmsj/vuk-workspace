@@ -156,7 +156,7 @@ export function useSpeechSynthesis({ key, treeWalker, voice, onRead }: {
     }
   }
 
-  function readAloud(n: ChildNode) {
+  function readAloud(n: ChildNode): void {
     // Use the first node child
     let text = n.textContent;
     if (n instanceof TranscriptElement) {
