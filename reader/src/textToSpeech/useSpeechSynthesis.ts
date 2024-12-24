@@ -76,7 +76,6 @@ export function useSpeechSynthesis({ key, treeWalker, voice, onRead }: {
     if (isReading.value == true) {
       next()
     }
-
   }
   function speak(txt: string) {
     const utt = new SpeechSynthesisUtterance(txt)
@@ -114,11 +113,21 @@ export function useSpeechSynthesis({ key, treeWalker, voice, onRead }: {
       return
     }
     // override
-    if (treeWalker.value) {
-      treeWalker.value.currentNode = target.firstChild
-      readAloud(target.firstChild)
-      console.log("Overriden")
+    if (!treeWalker.value) {
+      return
     }
+
+    if (isReading.value) {
+      // revert
+      if (transcriptElem.value) {
+        treeWalker.value.currentNode = revert(transcriptElem.value)
+      }
+      stop()
+    }
+    treeWalker.value.currentNode = target.firstChild
+    forceStopFlag.value = false;
+    readAloud(target.firstChild)
+    console.log("TTS: Overriden")
   }
 
   function follow() {
@@ -140,6 +149,7 @@ export function useSpeechSynthesis({ key, treeWalker, voice, onRead }: {
     treeWalker.value.currentNode = revert(transcriptElem.value)
     const n = treeWalker.value.nextNode()
     if (n) {
+      console.log("TTS: NEXT")
       readAloud(n as ChildNode)
     } else {
       console.log('TTS: No next node')
@@ -156,17 +166,17 @@ export function useSpeechSynthesis({ key, treeWalker, voice, onRead }: {
       //   onTranscriptEnd()
       //   return
       // }
-      const splits:Split[] = (n  as any)._instance.provides.splits._value
+      const splits: Split[] = (n as any)._instance.provides.splits._value
       // join from highlightedIndex to the end based on split.index
       text = splits.reduce((acc, split) => {
         // check index == highlightedIndex
         if (acc.found || split.index == start) {
           acc.found = true
-          acc.acc += split.text         
-        } 
+          acc.acc += split.text
+        }
 
         return acc
-      }, {acc:"", found:false}).acc
+      }, { acc: "", found: false }).acc
     } else {
       transcriptElem.value = transform(n, -1)
     }
