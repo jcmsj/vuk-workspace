@@ -64,6 +64,8 @@ async function scrollToLatestBookmark() {
         if (rootTreeWalker.value) {
             console.log("Bookmark: override tts:", elem)
             rootTreeWalker.value.currentNode = elem
+            // choose next node cause the text node gets selected which results in tts reading the same text again
+            rootTreeWalker.value.nextNode()
         }
     } else {
         console.error("Bookmark not found", latest)
