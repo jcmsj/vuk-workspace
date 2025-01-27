@@ -4,10 +4,10 @@ packages:
   - epub
   - transcript
 catalog:
-  vite: ^5.4.11
+  vite: ^6.0.11
   vue: ^3.5.13
   "@vitejs/plugin-vue": ^5.2.1
-  typescript: ^5.6.3
-  vue-tsc: ^2.1.10
+  typescript: ^5.7.3
+  vue-tsc: ^2.2.0
   "@types/wicg-file-system-access": ^2023.10.5
-  vite-plugin-qrcode: ^0.2.3
+  vite-plugin-qrcode: ^0.2.4
