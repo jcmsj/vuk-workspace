@@ -16,7 +16,7 @@
     </VListing>
     </template>
     <div v-else>
-        <div class="form-control text-center">
+        <div class="fieldset text-center">
             <h2 class="text-2xl">
                 <!-- icon -->
                  <mdi-alert-circle class="w-8 h-8 inline-block" />

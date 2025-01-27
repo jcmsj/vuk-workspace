@@ -7,6 +7,7 @@ import Components from 'unplugin-vue-components/vite'
 import basicSsl from '@vitejs/plugin-basic-ssl'
 import { qrcode } from 'vite-plugin-qrcode';
 import { VitePWA } from 'vite-plugin-pwa'
+import tailwindcss from "@tailwindcss/vite";
 // https://vitejs.dev/config/
 export default defineConfig({
   // server: {
@@ -15,6 +16,7 @@ export default defineConfig({
   //   },
   // },
   plugins: [
+    tailwindcss(),
     vue({
       script: {
         propsDestructure:true,

@@ -156,12 +156,11 @@ watch(pages, ()=> {
 })
 
 </script>
-<style src="./src/css/tailwind.css"></style>
 <style scoped>
 /**
  * @see ../bookmarks/index
  */
  :global(.vuk-bookmark) {
-  @apply bg-base-200;
+    background-color: var(--color-base-200);
 }
 </style>

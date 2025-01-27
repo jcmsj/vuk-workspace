@@ -140,11 +140,14 @@ function onSelect(option: 'read-aloud' | 'bookmark' | 'copy') {
 
 </script>
 <style>
+@reference "../css/tailwind.css";
 #app {
   @apply flex flex-col md:flex-row;
 }
 </style>
 <style scoped>
+@reference "../css/tailwind.css";
+
 .sidebar-icon {
   @apply w-6 h-6;
 }

@@ -69,9 +69,9 @@ defineProps<{
 defineEmits(["play", "pause"])
 const step = useLocalStorage('speechStepRate', 0.05)
 const { speechRate, decrement, increment, max, min } = useSpeechRate()
-
 </script>
 <style scoped>
+@reference "../css/tailwind.css";
 .mdi {
   @apply h-full w-full;
 }

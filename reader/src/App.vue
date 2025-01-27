@@ -1,26 +1,23 @@
 <template>
-    <router-view />
+  <router-view />
 </template>
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { loadBookFromCache, watchTheme,initSettingsIfNotExist } from './settings';
+import { loadBookFromCache, watchTheme, initSettingsIfNotExist } from './settings';
 
 watchTheme()
-onMounted(async() => {
+onMounted(async () => {
   await initSettingsIfNotExist()
   await loadBookFromCache()
 })
 </script>
 <style>
 body {
-  @apply overflow-hidden;
+  overflow: hidden;
 }
+
 #app {
-  @apply min-h-screen;
-  @apply overflow-hidden;
+  min-height: 100vh;
+  overflow: hidden;
 }
-
-</style>
-<style scoped>
-
 </style>
