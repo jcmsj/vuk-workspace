@@ -51,7 +51,7 @@
         <!-- vue -->
         <div class="text-center">
             <span class="text-lg">Vue</span>
-            {{ packageJson.dependencies.vue }}
+            <!-- {{ packageJson.dependencies.vue }} -->
         </div>
         <!-- daisyui -->
         <div class="text-center">

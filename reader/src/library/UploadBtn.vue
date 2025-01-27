@@ -2,7 +2,7 @@
 <div @click="chooser?.click">
     <mdi-upload class="w-6 h-6" title="Open an EPUB"/> 
     <input type=file hidden ref=chooser @change=selectFile :accept="INFO.MIME">
-    <span :class="uploadSpanClass">Upload</span>
+    <span class="dock-label" :class="uploadSpanClass">Upload</span>
 </div>
 </template>
 <script setup lang="ts">

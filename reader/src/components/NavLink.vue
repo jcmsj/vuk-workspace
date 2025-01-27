@@ -1,5 +1,5 @@
 <template>
-    <router-link :class="routerClass" :to="to">
+    <router-link :class="routerClass" :to="to" exact-active-class="dock-active">
     <slot name="icon">
 
     </slot>

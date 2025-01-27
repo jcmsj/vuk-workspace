@@ -47,39 +47,39 @@
   <div class="flex flex-col w-full">
     <router-view v-slot="{ Component, route }">
       <component :is="Component" :key="route.path" class="sticky top-0 bg-base-100"
-      :class="{ 'min-h-screen': outsideHome }" />
+        :class="{ 'min-h-screen': outsideHome }" />
     </router-view>
     <book-vue :class="{ 'overflow-hidden': outsideHome }" @contextmenu.prevent="showContextMenu($event)" />
     <TTSMenu v-show="!outsideHome" :isReading @pause="stop()" @play="start()" />
     <ReaderContextMenu v-model:location="desiredLocation" @select="onSelect" />
   </div>
-  <div class="btm-nav md:hidden">
+  <div class="dock md:hidden">
     <upload-btn />
-    <nav-link to="/files"  v-if="isSupported">
+    <nav-link to="/files" v-if="isSupported" span-class="dock-label">
       <template #icon>
         <mdi-folder class="botbarIcon" />
       </template>
       Files
     </nav-link>
-    <nav-link to="/toc">
+    <nav-link to="/toc" span-class="dock-label">
       <template #icon>
         <mdi-format-list-bulleted class="botbarIcon" />
       </template>
       TOC
     </nav-link>
-    <nav-link to="/">
+    <nav-link to="/" span-class="dock-label">
       <template #icon>
         <mdi:book-open-blank-variant class="botbarIcon" />
       </template>
       Read
     </nav-link>
-    <nav-link to="/bookmarks">
+    <nav-link to="/bookmarks" span-class="dock-label">
       <template #icon>
         <mdi-bookmark class="botbarIcon" />
       </template>
       Bookmarks
     </nav-link>
-    <nav-link to="/settings">
+    <nav-link to="/settings" span-class="dock-label">
       <template #icon>
         <mdi-cog class="botbarIcon" />
       </template>
@@ -93,7 +93,7 @@ import UploadBtn from '../library/UploadBtn.vue';
 import NavLink from '../components/NavLink.vue';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { addTTsBookmark, onClick as onBookmarkClick} from '../bookmarks'
+import { addTTsBookmark, onClick as onBookmarkClick } from '../bookmarks'
 import { useContextMenu } from '../composables/useContextMenu';
 import ReaderContextMenu from '../contextMenu/ReaderContextMenu.vue';
 import { useSpeechSynthesis } from '../textToSpeech/useSpeechSynthesis';
@@ -104,16 +104,16 @@ import { isSupported } from '@vuk/fs/lib/web';
 const { desiredLocation, show: showContextMenu, mouseEvent } = useContextMenu()
 const route = useRoute()
 const outsideHome = computed(() => route.name != 'root');
-const {voice} = useVoice()
+const { voice } = useVoice()
 
-const {setTranscriptFromEvent,isReading,stop,start} = useSpeechSynthesis({
+const { setTranscriptFromEvent, isReading, stop, start } = useSpeechSynthesis({
   key: {
     speechRate: 'speechRate',
   },
   voice,
   treeWalker: rootTreeWalker,
   onRead(n) {
-      addTTsBookmark(n.parentElement?.parentElement!)
+    addTTsBookmark(n.parentElement?.parentElement!)
   },
 })
 
@@ -141,6 +141,7 @@ function onSelect(option: 'read-aloud' | 'bookmark' | 'copy') {
 </script>
 <style>
 @reference "../css/tailwind.css";
+
 #app {
   @apply flex flex-col md:flex-row;
 }
