@@ -27,6 +27,7 @@ export interface BookCache {
     bookId:number,
     data:File,
     lastAccessed:Date,
+    cover?: Blob,
 }
 export class VukDB extends Dexie {
     books!:EntityTable<Book, 'id'>;
@@ -44,7 +45,7 @@ export class VukDB extends Dexie {
             tts:"bookId", // dont autoincrement since id == bookId
             settings:"id", //single row until multiple users are allowed
             cache:"bookId, lastAccessed",
-        })
+        });
     }
 }
 

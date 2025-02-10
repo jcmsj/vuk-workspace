@@ -10,7 +10,7 @@ import EpubStyle from "./EpubStyle.vue"
 import { ProgressEvents } from "@jcsj/epub/lib/Parts";
 import { useTitle } from "@vueuse/core";
 import TOC from "../TOC";
-import {settings, SETTINGS_ID} from "../settings";
+import { settings, SETTINGS_ID } from "../settings";
 import { Book, db } from '../db/dexie';
 import { book } from '../bookmarks';
 import { reactive, watch } from 'vue';
@@ -19,7 +19,7 @@ defineOptions({
     inheritAttrs: false,
 })
 
-async function registerBook(title: string):Promise<Book> {
+async function registerBook(title: string): Promise<Book> {
     const existing = await db.books.where("title")
         .equalsIgnoreCase(title)
         .first()
@@ -36,16 +36,16 @@ async function registerBook(title: string):Promise<Book> {
         title
     }
 }
-async function addToCache(bookId:number,data:File) {
+async function addToCache(bookId: number, data: File) {
     let settings = await db.settings.get(SETTINGS_ID)
-    
+
     if (settings?.cacheSize == null) {
         await db.settings.update(SETTINGS_ID, {
             cacheSize: 3
         })
     }
     if (!settings) {
-       await db.settings.add({
+        await db.settings.add({
             id: SETTINGS_ID,
             devMode: false,
             theme: "light",
@@ -95,8 +95,8 @@ const withLogs: ProgressEvents = {
     async metadata(metadata) {
         console.log("Meta:", metadata);
         // const title = useTitle(metadata.title)
-        book.value = await registerBook(metadata.title!)
-        await addToCache(book.value.id,props.file)
+        book.value = (await registerBook(metadata.title!).catch(console.error))!
+        await addToCache(book.value.id, props.file)
     },
     manifest(manifest) {
         console.log("manifest: ", manifest);
@@ -111,8 +111,45 @@ const withLogs: ProgressEvents = {
         console.log("TOC: ", toc);
         TOC.items = toc
     },
+    loaded(p) {
+        storeCoverImage()
+    },
 }
 
+function storeCoverImage() {
+    // Extract cover image from manifest
+    setTimeout(async () => {
+        if (!epub.value) {
+            console.warn("Epub is undefined")
+            return;
+        }
+        const candidateIDs = ['cover', 'cover-image', 'cover_image'];
+        let cover: Blob | undefined;
+        for (const candidate of candidateIDs) {
+            const coverItemUrl = await epub.value.getImage(candidate).catch(e => {
+                console.error(`Failed to get cover image by ID:${candidate}`, e)
+            })
+
+            if (coverItemUrl) {
+                // get the blob
+                console.log("Cover item url:", coverItemUrl)
+                cover = await fetch(coverItemUrl).then(r => r.blob())
+                break;
+            }
+        }
+
+        if (!cover) {
+            console.warn("No cover item found")
+            return;
+        }
+
+        if (cover && book.value) {
+            await db.cache.update(book.value.id, {
+                cover,
+            })
+        }
+    }, 2000);
+}
 const noLogs: ProgressEvents = {
     async root() {
         TOC.items.clear()
@@ -120,11 +157,14 @@ const noLogs: ProgressEvents = {
     async metadata(metadata) {
         useTitle(metadata.title)
         book.value = await registerBook(metadata.title!)
-        await addToCache(book.value.id,props.file)
+        await addToCache(book.value.id, props.file)
 
     },
     toc(toc) {
         TOC.items = toc
+    },
+    loaded(p) {
+        storeCoverImage()
     },
 }
 const props = defineProps<{
@@ -132,26 +172,26 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-    epubLoaded: [epub:EnhancedEpub]
-    epubRendered: [epub:EnhancedEpub]
+    epubLoaded: [epub: EnhancedEpub]
+    epubRendered: [epub: EnhancedEpub]
 }>()
 const epub = asyncComputed(() => Enhanced({
     blob: props.file,
     events: settings.value?.devMode ? withLogs : noLogs
 }))
 
-const pages = reactive<{pages:LoadedChapter[]}>({
-    pages:[]
-}) 
-watch(epub, async(epub) => {
+const pages = reactive<{ pages: LoadedChapter[] }>({
+    pages: []
+})
+watch(epub, async (epub) => {
     if (epub) {
         pages.pages = (await epub.loadAll()) ?? []
         emit("epubLoaded", epub)
     }
 })
-watch(pages, ()=> {
+watch(pages, () => {
     if (epub.value) {
-        emit("epubRendered", epub.value) 
+        emit("epubRendered", epub.value)
     }
 })
 
@@ -160,7 +200,7 @@ watch(pages, ()=> {
 /**
  * @see ../bookmarks/index
  */
- :global(.vuk-bookmark) {
+:global(.vuk-bookmark) {
     background-color: var(--color-base-200);
 }
 </style>

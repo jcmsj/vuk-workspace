@@ -15,6 +15,7 @@ declare module 'vue' {
     MdiAlertCircle: typeof import('~icons/mdi/alert-circle')['default']
     MdiBook: typeof import('~icons/mdi/book')['default']
     MdiBookmark: typeof import('~icons/mdi/bookmark')['default']
+    MdiBookshelf: typeof import('~icons/mdi/bookshelf')['default']
     MdiCaret: typeof import('~icons/mdi/caret')['default']
     MdiCog: typeof import('~icons/mdi/cog')['default']
     MdiDotsVertical: typeof import('~icons/mdi/dots-vertical')['default']

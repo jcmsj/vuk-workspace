@@ -12,6 +12,14 @@
       </nav-link>
     </li>
     <li>
+      <nav-link to="/shelf" spanClass="sidebar-label">
+        <template #icon>
+          <mdi-bookshelf class="sidebar-icon" />
+        </template>
+        Shelf
+      </nav-link>
+    </li>
+    <li>
       <nav-link to="/toc" spanClass="sidebar-label">
         <template #icon>
           <mdi-format-list-bulleted class="sidebar-icon" />
@@ -43,6 +51,7 @@
         Settings
       </nav-link>
     </li>
+
   </ul>
   <div class="flex flex-col w-full">
     <router-view v-slot="{ Component, route }">
@@ -84,6 +93,12 @@
         <mdi-cog class="botbarIcon" />
       </template>
       Settings
+    </nav-link>
+    <nav-link to="/shelf" span-class="dock-label">
+      <template #icon>
+        <mdi-bookshelf class="botbarIcon" />
+      </template>
+      Shelf
     </nav-link>
   </div>
 </template>
