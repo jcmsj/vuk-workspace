@@ -111,7 +111,7 @@ const withLogs: ProgressEvents = {
         console.log("TOC: ", toc);
         TOC.items = toc
     },
-    loaded(p) {
+    loaded(_p) {
         storeCoverImage()
     },
 }
@@ -163,7 +163,7 @@ const noLogs: ProgressEvents = {
     toc(toc) {
         TOC.items = toc
     },
-    loaded(p) {
+    loaded(_p) {
         storeCoverImage()
     },
 }
