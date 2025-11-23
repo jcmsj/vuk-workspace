@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Run build
-        run: pnpm --filter ./reader build
+        run: pnpm --filter ./reader build --base vuk-workspace
 
       # Upload the produced static site for GitHub Pages
       - name: Upload Pages artifact
