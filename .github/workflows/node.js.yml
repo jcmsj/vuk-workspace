@@ -8,29 +8,22 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
-        node-version: [22.x] # Specify desired Node.js versions
-
+        node-version: [22.x]
     steps:
-    - uses: actions/checkout@v4
-
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'pnpm' # Enables caching for pnpm dependencies
-
-    - name: Enable Corepack and prepare pnpm
-      run: |
-        corepack enable
-        corepack prepare pnpm@latest --activate # Activates the latest pnpm version via Corepack
-
-    - name: Install dependencies
-      run: pnpm install --frozen-lockfile # Installs dependencies using pnpm
-
-    - name: Run build (if applicable)
-      run: pnpm build # Executes project build script, if defined in package.json
-      if: success() # Only runs if previous steps were successful
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Run build
+        run: pnpm build
