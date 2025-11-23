@@ -34,6 +34,9 @@ export function stripOEBPSPrefix(name: string) {
     return name.replace(Reader.OEBPS_PREFIX, '');
 }
 
+export function stripOPSPrefix(name: string) {
+    return name.replace(Reader.OPS_PREFIX, '');
+}
 export class Reader extends ZipReader<Uint8Array> implements ReaderLike {
     entries: Map<string, Entry>;
     container?: LoadedEntry;
@@ -43,7 +46,7 @@ export class Reader extends ZipReader<Uint8Array> implements ReaderLike {
      * stripping that would speedup searching in {@link Reader.entries}
      */
     static readonly OEBPS_PREFIX: RegExp = /^OEBPS\//;
-    // TODO: Handle OPS prefix
+    static readonly OPS_PREFIX: RegExp = /^OPS\//;
     constructor(value: Uint8Array) {
         super(new Uint8ArrayReader(value));
         this.entries = new Map();
@@ -54,7 +57,10 @@ export class Reader extends ZipReader<Uint8Array> implements ReaderLike {
     async init() {
         const entries = await this.getEntries();
         for (const entry of entries) {
+            // Feat: handle both OEBPS/ and OPS/ prefixes
             this.entries.set(stripOEBPSPrefix(entry.filename), entry);
+            this.entries.set(stripOPSPrefix(entry.filename), entry);
+            this.entries.set(entry.filename, entry);
         }
         // close the ZipReader
         await this.close();
