@@ -28,7 +28,7 @@ jobs:
 
       # Upload the produced static site for GitHub Pages
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           # Adjust this path if your build outputs to a different directory
           path: ./reader/dist
