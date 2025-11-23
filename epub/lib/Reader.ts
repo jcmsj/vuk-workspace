@@ -1,4 +1,4 @@
-import { BlobWriter, Entry, TextWriter, Uint8ArrayReader, ZipReader } from "@zip.js/zip.js";
+import { BlobWriter, FileEntry, TextWriter, Uint8ArrayReader, ZipReader } from "@zip.js/zip.js";
 import { MIMEError } from "./error/MIMEError";
 import { LoadedEntry } from "./traits";
 /**
@@ -38,7 +38,7 @@ export function stripOPSPrefix(name: string) {
     return name.replace(Reader.OPS_PREFIX, '');
 }
 export class Reader extends ZipReader<Uint8Array> implements ReaderLike {
-    entries: Map<string, Entry>;
+    entries: Map<string, FileEntry>;
     container?: LoadedEntry;
 
     /**
@@ -57,6 +57,9 @@ export class Reader extends ZipReader<Uint8Array> implements ReaderLike {
     async init() {
         const entries = await this.getEntries();
         for (const entry of entries) {
+            if (entry.directory == true) {
+                continue;
+            }
             // Feat: handle both OEBPS/ and OPS/ prefixes
             this.entries.set(stripOEBPSPrefix(entry.filename), entry);
             this.entries.set(stripOPSPrefix(entry.filename), entry);

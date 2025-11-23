@@ -1,4 +1,4 @@
-import { Entry } from "@zip.js/zip.js";
-export interface LoadedEntry extends Entry {
+import { FileEntry } from "@zip.js/zip.js";
+export interface LoadedEntry extends FileEntry {
     data: string | Blob
 }
